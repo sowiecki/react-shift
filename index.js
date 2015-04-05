@@ -34,15 +34,15 @@ var Slide = React.createClass({displayName: "Slide",
     render: function() {
       var self = this,
           filler =
-            React.createElement("span", {className: "react-shift-nav-arrow noclick"}, "\u00a0"),
+            React.createElement("span", {className: "react-shift-nav-arrow"}, "\u00a0"),
           leftArrow =
             this.state.page === 0 ? filler : React.createElement("a", {key: "react-shift-previous-page", id: "react-shift-previous-page", className: "react-shift-nav-arrow", href: "#", onClick: this.previousPage}, "«"),
           rightArrow =
            this.state.page === SlideLength ? filler : React.createElement("a", {key: "react-shift-next-page", id: "react-shift-next-page", className: "react-shift-nav-arrow", href: "#", onClick: this.nextPage}, "»"),
           pagination =
-            React.createElement("span", {id: "page-numbers", className: "noselect"}, 
+            React.createElement("span", {id: "react-shift-page-numbers", className: "noselect"}, 
               paginationArray.map(function(n) {
-                return n == self.state.page ? React.createElement("a", {key: n, className: "current-page", href: "#"}, n + 1) : React.createElement("a", {key: n, href: "#", onClick: self.skipToPage.bind(null, n)}, n + 1)
+                return n == self.state.page ? React.createElement("a", {key: n, className: "react-shift-current-page", href: "#"}, n + 1) : React.createElement("a", {key: n, href: "#", onClick: self.skipToPage.bind(null, n)}, n + 1)
               })
             )
 
@@ -61,4 +61,4 @@ var Slide = React.createClass({displayName: "Slide",
     }
   });
 
-if (document) React.render(React.createElement(Slide, null), document.getElementById("react-shift-anchor"));
+React.render(React.createElement(Slide, null), document.getElementById("react-shift-anchor"));
