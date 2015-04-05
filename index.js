@@ -1,6 +1,6 @@
 module.exports = Slide
 
-slides = document.getElementsByClassName('react-slide')
+slides = document.getElementsByClassName('react-slide') || []
 
 // Dependencies
 var React = require('react/addons'),
@@ -10,7 +10,7 @@ var React = require('react/addons'),
     paginationArray = Array.apply(null, {length: SlideLength + 1}).map(Number.call, Number);
 
 // Carousel
-var Slide = React.createClass({
+var Slide = React.createClass({displayName: "Slide",
     getInitialState: function() {
       return {
         mounted: false,
@@ -34,31 +34,31 @@ var Slide = React.createClass({
     render: function() {
       var self = this,
           filler =
-            <span className="react-shift-nav-arrow noclick">{"\u00a0"}</span>,
+            React.createElement("span", {className: "react-shift-nav-arrow noclick"}, "\u00a0"),
           leftArrow =
-            this.state.page === 0 ? filler : <a key="react-shift-previous-page" id="react-shift-previous-page" className="react-shift-nav-arrow" href="#" onClick={this.previousPage}>«</a>,
+            this.state.page === 0 ? filler : React.createElement("a", {key: "react-shift-previous-page", id: "react-shift-previous-page", className: "react-shift-nav-arrow", href: "#", onClick: this.previousPage}, "«"),
           rightArrow =
-           this.state.page === SlideLength ? filler : <a key="react-shift-next-page" id="react-shift-next-page" className="react-shift-nav-arrow" href="#" onClick={this.nextPage}>»</a>,
+           this.state.page === SlideLength ? filler : React.createElement("a", {key: "react-shift-next-page", id: "react-shift-next-page", className: "react-shift-nav-arrow", href: "#", onClick: this.nextPage}, "»"),
           pagination =
-            <span id="page-numbers" className="noselect">
-              {paginationArray.map(function(n) {
-                return n == self.state.page ? <a key={n} className="current-page" href="#">{n + 1}</a> : <a key={n} href="#" onClick={self.skipToPage.bind(null, n)}>{n + 1}</a>
-              })}
-            </span>
+            React.createElement("span", {id: "page-numbers", className: "noselect"}, 
+              paginationArray.map(function(n) {
+                return n == self.state.page ? React.createElement("a", {key: n, className: "current-page", href: "#"}, n + 1) : React.createElement("a", {key: n, href: "#", onClick: self.skipToPage.bind(null, n)}, n + 1)
+              })
+            )
 
       return (
-        <div id="react-shift-wrapper">
-          <div id="react-shift-slide">
-            <ReactCSSTransitionGroup transitionName="react-shift-slide-transition"}>
-              {slides[this.state.page]}
-            </ReactCSSTransitionGroup>
-          </div>
-          <nav>
-            {leftArrow, pagination, rightArrow}
-          </nav>
-        </div>
+        React.createElement("div", {id: "react-shift-wrapper"}, 
+          React.createElement("div", {id: "react-shift-slide"}, 
+            React.createElement(ReactCSSTransitionGroup, {transitionName: "react-shift-slide-transition"}, 
+              slides[this.state.page]
+            )
+          ), 
+          React.createElement("nav", null, 
+            leftArrow, pagination, rightArrow
+          )
+        )
       );
     }
   });
 
-React.render(<Slide/>, document.getElementById("react-shift-anchor"));
+if (document) React.render(React.createElement(Slide, null), document.getElementById("react-shift-anchor"));
