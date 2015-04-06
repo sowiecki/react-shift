@@ -2,7 +2,7 @@
   "name": "react-shift",
   "version": "0.1.05",
   "description": "React carousel/slider with pagination.",
-  "main": "index.js",
+  "main": "react-shift.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,6 +26,10 @@
   },
   "devDependencies": {
     "chai": "^2.2.0",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^3.6.0",
+    "grunt-react": "^0.12.1",
+    "matchdep": "^0.3.0",
     "mocha": "^2.2.1",
     "react": "^0.13.1"
   }
