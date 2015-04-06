@@ -21,6 +21,9 @@
     "url": "https://github.com/Nase00/react-shift/issues"
   },
   "homepage": "https://github.com/Nase00/react-shift",
+  "dependencies": {
+    "react": "^0.13.1"
+  },
   "devDependencies": {
     "chai": "^2.2.0",
     "mocha": "^2.2.1",
