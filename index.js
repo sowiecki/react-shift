@@ -1,34 +1,34 @@
 var React = require('react/addons');
 
-// Testing
-var pageKey = 0,
-    pagesArray = [
-      React.createElement("div", {key: pageKey++}, "First page"),
-      React.createElement("div", {key: pageKey++}, "Second page"),
-      React.createElement("div", {key: pageKey++}, "Third page")
-    ];
-
 // Dependencies
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup,
-    ReactTransitionGroup = React.addons.TransitionGroup,
-    ShiftLength = pagesArray.length - 1
-    paginationArray = Array.apply(null, {length: ShiftLength + 1}).map(Number.call, Number);
+    ReactTransitionGroup = React.addons.TransitionGroup;
 
 // Carousel
 var Shift = React.createClass({displayName: "Shift",
+    propTypes: {
+      pages: React.PropTypes.array.isRequired
+    },
+    getDefaultProps: function() {
+      return {
+        pages: [React.createElement("div", null, "You haven't passed any pages.")]
+      };
+    },
     getInitialState: function() {
       return {
         mounted: false,
-        page: 0
+        page: 0,
+        pageCount: 0
       };
     },
     componentDidMount: function() {
       this.setState({
-        mounted: true
+        mounted: true,
+        pageCount: this.props.pages.length - 1
       });
     },
     nextPage: function() {
-      this.state.page === ShiftLength ? null : this.setState({page: this.state.page + 1});
+      this.state.page === this.state.pageCount ? null : this.setState({page: this.state.page + 1});
     },
     previousPage: function() {
       this.state.page === 0 ? null : this.setState({page: this.state.page - 1});
@@ -38,12 +38,13 @@ var Shift = React.createClass({displayName: "Shift",
     },
     render: function() {
       var self = this,
+          paginationArray = Array.apply(null, {length: this.state.pageCount + 1}).map(Number.call, Number),
           filler =
             React.createElement("span", {className: "react-shift-nav-arrow"}, "\u00a0"),
           leftArrow =
             this.state.page === 0 ? filler : React.createElement("a", {key: "react-shift-previous-page", id: "react-shift-previous-page", className: "react-shift-nav-arrow", href: "#", onClick: this.previousPage}, "«"),
           rightArrow =
-           this.state.page === ShiftLength ? filler : React.createElement("a", {key: "react-shift-next-page", id: "react-shift-next-page", className: "react-shift-nav-arrow", href: "#", onClick: this.nextPage}, "»"),
+           this.state.page === this.state.pageCount ? filler : React.createElement("a", {key: "react-shift-next-page", id: "react-shift-next-page", className: "react-shift-nav-arrow", href: "#", onClick: this.nextPage}, "»"),
           pagination =
             React.createElement("span", {id: "react-shift-page-numbers", className: "noselect"}, 
               paginationArray.map(function(n) {
@@ -54,9 +55,7 @@ var Shift = React.createClass({displayName: "Shift",
       return (
         React.createElement("div", {id: "react-shift-wrapper"}, 
           React.createElement("div", {id: "react-shift-slide"}, 
-            React.createElement(ReactCSSTransitionGroup, {transitionName: "react-shift-slide-transition"}, 
-              this.data.pagesArray[this.state.page]
-            )
+            this.props.pages[this.state.page]
           ), 
           React.createElement("nav", null, 
             leftArrow, pagination, rightArrow
@@ -66,4 +65,4 @@ var Shift = React.createClass({displayName: "Shift",
     }
   });
 
-module.exports = Shift;
+module.exports = Shift
