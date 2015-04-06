@@ -1,6 +1,6 @@
 {
   "name": "react-shift",
-  "version": "0.1.04",
+  "version": "0.1.05",
   "description": "React carousel/slider with pagination.",
   "main": "index.js",
   "scripts": {
