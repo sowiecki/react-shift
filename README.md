@@ -21,3 +21,31 @@ React.render(
   document.getElementById("react-shift-anchor")
 );
 ```
+
+## Styling
+```css
+/* component wrapper */
+div#react-shift-wrapper {	
+}
+
+/* page division */
+div#react-shift-page {
+}
+
+/* navigation and pagination */
+nav#react-shift-navigation {
+}
+
+/* pagination */
+span#react-shift-page-numbers {
+}
+
+/* navigation arrows */
+a#react-shift-nav-arrow {
+}
+
+/* current page number within pagination */
+a#react-shift-current-page {
+}
+
+```

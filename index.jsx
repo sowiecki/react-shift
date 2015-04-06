@@ -48,16 +48,16 @@ var Shift = React.createClass({
           pagination =
             <span id="react-shift-page-numbers" className="noselect">
               {paginationArray.map(function(n) {
-                return n == self.state.page ? <a key={n} className="react-shift-current-page" href="#">{n + 1}</a> : <a key={n} href="#" onClick={self.skipToPage.bind(null, n)}>{n + 1}</a>
+                return n == self.state.page ? <a key={n} id="react-shift-current-page" href="#">{n + 1}</a> : <a key={n} href="#" onClick={self.skipToPage.bind(null, n)}>{n + 1}</a>
               })}
             </span>
 
       return (
         <div id="react-shift-wrapper">
-          <div id="react-shift-slide">
+          <div id="react-shift-page">
             {this.props.pages[this.state.page]}
           </div>
-          <nav>
+          <nav id="react-shift-navigation">
             {leftArrow, pagination, rightArrow}
           </nav>
         </div>
