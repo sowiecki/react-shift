@@ -12,6 +12,11 @@ var Shift = React.createClass({
     },
     getDefaultProps: function() {
       return {
+        options: {
+          nextPage: "Next page",
+          previousPage: "Previous page",
+          fastLinks: {}
+        },
         pages: [<div>You haven't passed any pages.</div>]
       };
     },
@@ -39,7 +44,7 @@ var Shift = React.createClass({
     },
     render: function() {
       var self = this,
-          fastLinks = this.props.options.fastLinks || {},
+          fastLinks = this.props.options.fastLinks,
           paginationArray = Array.apply(null, {length: this.state.pageCount + 1}).map(Number.call, Number),
           filler =
             <span className="react-shift-nav-arrow">{"\u00a0"}</span>,
