@@ -1,6 +1,8 @@
 # react-shift
 Creates a carousel component out of an array of JSX trees. Each index of the array is a page of the carousel.
 
+Passing an options object to the carousel component allows customization of the paging arrows and named links.
+
 ## Installation
 ```
 npm install react-shift
@@ -8,7 +10,8 @@ npm install react-shift
 
 ## Usage
 ```jsx
-var Shift = require('react-shift'),
+var React = require('react/addons'),
+		Shift = require('react-shift'),
 		pageKey = 0,
 		pagesArray = [
 			<div key={pageKey++}>First page</div>,
@@ -18,6 +21,23 @@ var Shift = require('react-shift'),
 
 React.render(
   <Shift pages={pagesArray}/>,
+  document.getElementById("react-shift-anchor")
+);
+```
+
+## Customization
+```jsx
+var shiftOptions = {
+  nextPage: "»",
+  previousPage: "«",
+  fastLinks: {
+    "Photos": 3, // Remember, indexing of an array starts at 0
+    "About me": 7
+  }
+}
+
+React.render(
+  <Shift options={shiftOptions} pages={pagesArray}/>,
   document.getElementById("react-shift-anchor")
 );
 ```
@@ -48,4 +68,8 @@ a#react-shift-nav-arrow {
 a#react-shift-current-page {
 }
 
+/* fast links */
+a.react-shift-fast-link {
+	
+}
 ```

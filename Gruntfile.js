@@ -4,7 +4,8 @@ module.exports = function(grunt) {
   grunt.initConfig({
     browserify: {
       options: {
-        transform: [ require("grunt-react").browserify ]
+        transform: [ require("grunt-react").browserify ],
+        ignore: "react"
       },
       app: {
         src: "react-shift.jsx",
@@ -26,6 +27,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-react");
 
   grunt.registerTask("transform",[
-    "browserify"
+    "react"
   ]);
 };
