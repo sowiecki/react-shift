@@ -15,6 +15,9 @@
     "slider",
     "carousel"
   ],
+  "scripts": {
+    "test": "jest"
+  },
   "author": "Sean Owiecki <seanowiecki@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -25,12 +28,11 @@
     "react": "^0.13.1"
   },
   "devDependencies": {
-    "chai": "^2.2.0",
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.6.0",
     "grunt-react": "^0.12.1",
+    "jest": "^0.1.39",
     "matchdep": "^0.3.0",
-    "mocha": "^2.2.1",
     "react": "^0.13.1"
   }
 }

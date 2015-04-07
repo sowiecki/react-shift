@@ -1,5 +1,5 @@
 # react-shift
-Creates a carousel component out of an array of JSX trees. Each index of the array is a page of the carousel.
+Creates a carousel component out of an array of JSX trees. Each element of the array is a page of the carousel.
 
 Passing an options object to the carousel component allows customization of the paging arrows and named links.
 
@@ -70,6 +70,5 @@ a#react-shift-current-page {
 
 /* fast links */
 a.react-shift-fast-link {
-	
 }
 ```
