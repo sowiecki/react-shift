@@ -1,3 +1,23 @@
+.react-shift-page-enter {  
+  position: absolute;
+  right: 0; left: 0;
+  opacity: 0.01;
+  transition: opacity .25s ease-in;
+}
+.react-shift-page-enter.react-shift-page-enter-active {  
+  opacity: 1;
+}
+.react-shift-page-leave {  
+  position: absolute;
+  right: 0; left: 0;
+  opacity: 1;
+  transition: opacity .25s ease-in;
+}
+.react-shift-page-leave.react-shift-page-leave-active {
+  position: absolute;
+  opacity: 0.01;
+  transition: opacity .25s ease-in;
+}
 
 div#react-shift-wrapper {  
 	font-family: Helvetica;
@@ -5,8 +25,10 @@ div#react-shift-wrapper {
 
 div#react-shift-page {
 	box-sizing: border-box;
+  position: absolute;
 	margin: 0 auto auto;
 	padding: 10px;
+	left: 0; right: 0;
 	width: 600px;
 	border: 2px solid #3f3f3f;
 	border-radius: 10px;

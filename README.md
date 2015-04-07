@@ -23,8 +23,8 @@ React.render(
 );
 ```
 
-The component can be passed an options object to customize the navigation.
 ## Customization
+The component can be passed an options object to customize the navigation.
 ```jsx
 var shiftOptions = {
   nextPage: "»",
@@ -73,5 +73,31 @@ a#react-shift-current-page {
 
 /* fast links */
 a.react-shift-fast-link {
+}
+```
+
+## Transition animations
+Pass ```Object.options.transitions: true ``` to activate transition animations. Transitions are controlled by ReactCSSTransitionGroup.
+```css
+/* minimum required for page transition */
+.react-shift-page-enter {  
+  position: absolute;
+  right: 0; left: 0;
+  opacity: 0.01;
+  transition: opacity .25s ease-in;
+}
+.react-shift-page-enter.react-shift-page-enter-active {  
+  opacity: 1;
+}
+.react-shift-page-leave {  
+  position: absolute;
+  right: 0; left: 0;
+  opacity: 1;
+  transition: opacity .25s ease-in;
+}
+.react-shift-page-leave.react-shift-page-leave-active {
+  position: absolute;
+  opacity: 0.01;
+  transition: opacity .25s ease-in;
 }
 ```

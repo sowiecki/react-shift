@@ -6,7 +6,8 @@ var React = require('react/addons'),
 		  fastLinks: {
 		    "Third page": 2,
 		    "Fifth page": 4
-		  }
+		  },
+		  transitions: true
 		},
 		pageKey = 0,
 		pagesArray = [
