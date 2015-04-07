@@ -28,6 +28,6 @@ var React = require('react/addons'),
 		];
 
 React.render(
-  <Shift pages={pagesArray}/>,
+  <Shift options={shiftOptions} pages={pagesArray}/>,
   document.getElementById("react-shift-anchor")
 );

@@ -1,8 +1,7 @@
 var React = require('react/addons');
 
 // Dependencies
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup,
-    ReactTransitionGroup = React.addons.TransitionGroup;
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 // Carousel
 var Shift = React.createClass({displayName: "Shift",
@@ -16,8 +15,7 @@ var Shift = React.createClass({displayName: "Shift",
           nextPage: "Next page",
           previousPage: "Previous page",
           fastLinks: {}
-        },
-        pages: [React.createElement("div", null, "You haven't passed any pages.")]
+        }
       };
     },
     getInitialState: function() {
