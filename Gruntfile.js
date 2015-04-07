@@ -8,8 +8,8 @@ module.exports = function(grunt) {
         ignore: "react"
       },
       app: {
-        src: "react-shift.jsx",
-        dest: "react-shift.js"
+        src: "test.jsx",
+        dest: "compiled.js"
       }
     },
     react: {
@@ -20,11 +20,20 @@ module.exports = function(grunt) {
           ]
         }
       },
-    }
+    },
+    watch: {
+      files: ["./test.jsx"],
+      tasks: ["browserify"],
+    },
   });
 
   grunt.loadNpmTasks("grunt-browserify");
+  grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-react");
+
+  grunt.event.on("watch", function(action, filepath, target) {
+    grunt.log.writeln(target + ": " + filepath + " has " + action);
+  });
 
   grunt.registerTask("transform",[
     "react"
