@@ -12,6 +12,11 @@ var Shift = React.createClass({displayName: "Shift",
     },
     getDefaultProps: function() {
       return {
+        options: {
+          nextPage: "Next page",
+          previousPage: "Previous page",
+          fastLinks: {}
+        },
         pages: [React.createElement("div", null, "You haven't passed any pages.")]
       };
     },
@@ -39,23 +44,23 @@ var Shift = React.createClass({displayName: "Shift",
     },
     render: function() {
       var self = this,
-          fastLinks = this.props.options.fastLinks || {},
+          fastLinks = this.props.options.fastLinks,
           paginationArray = Array.apply(null, {length: this.state.pageCount + 1}).map(Number.call, Number),
           filler =
-            React.createElement("span", {className: "react-shift-nav-arrow"}, "\u00a0"),
+            React.createElement("div", {className: "react-shift-nav-arrow"}, "\u00a0"),
           leftArrow =
-            this.state.page === 0 ? filler : React.createElement("a", {key: "react-shift-previous-page", id: "react-shift-previous-page", className: "react-shift-nav-arrow", href: "#", onClick: this.previousPage}, this.props.options.previousPage),
+            this.state.page === 0 ? filler : React.createElement("div", {key: "react-shift-previous-page", className: "react-shift-nav-arrow"}, React.createElement("a", {id: "react-shift-previous-page", href: "#", onClick: this.previousPage}, this.props.options.previousPage)),
           rightArrow =
-           this.state.page === this.state.pageCount ? filler : React.createElement("a", {key: "react-shift-next-page", id: "react-shift-next-page", className: "react-shift-nav-arrow", href: "#", onClick: this.nextPage}, this.props.options.nextPage),
+           this.state.page === this.state.pageCount ? filler : React.createElement("div", {key: "react-shift-next-page", className: "react-shift-nav-arrow"}, React.createElement("a", {id: "react-shift-next-page", href: "#", onClick: this.nextPage}, this.props.options.nextPage)),
           pagination =
-            React.createElement("span", {id: "react-shift-page-numbers", className: "noselect"}, 
+            React.createElement("span", {key: "react-shift-pagination", id: "react-shift-page-numbers", className: "noselect"}, 
               paginationArray.map(function(n) {
-                return n == self.state.page ? React.createElement("a", {key: self.state.page + n, id: "react-shift-current-page", href: "#"}, n + 1) : React.createElement("a", {key: n, href: "#", onClick: self.skipToPage.bind(null, n)}, n + 1)
+                return n == self.state.page ? React.createElement("a", {key: "currentPage" + self.state.page, id: "react-shift-current-page", href: "#"}, n + 1) : React.createElement("a", {key: "page" + n, href: "#", onClick: self.skipToPage.bind(null, n)}, n + 1)
               })
             )
 
       return (
-        React.createElement("div", {id: "react-shift-wrapper"}, 
+        React.createElement("div", {key: "react-shift", id: "react-shift-wrapper"}, 
           React.createElement("div", {id: "react-shift-page"}, 
             this.props.pages[this.state.page]
           ), 
