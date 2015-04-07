@@ -1,0 +1,51 @@
+
+div#react-shift-wrapper {  
+	font-family: Helvetica;
+}
+
+div#react-shift-page {
+	box-sizing: border-box;
+	margin: 0 auto auto;
+	padding: 10px;
+	width: 600px;
+	border: 2px solid #3f3f3f;
+	border-radius: 10px;
+}
+
+nav#react-shift-navigation {
+	box-sizing: border-box;
+	position: fixed;
+	bottom: 100px; left: 0; right: 0;
+	margin: 10px auto auto;
+	padding: 2px;
+	width: 600px;
+	height: 50px;
+	text-align: center;
+	border: 2px solid #3f3f3f;
+	border-radius: 10px;
+}
+
+#react-shift-page-numbers {
+	
+}
+
+.react-shift-nav-arrow {
+	display: inline-block;
+	width: 60px;
+}
+
+#react-shift-next-page {
+	
+}
+
+#react-shift-previous-page {
+	
+}
+
+a#react-shift-current-page {
+	font-size: 22px;
+}
+
+a.react-shift-fast-link {
+	margin: 0 4px 0 4px;
+}

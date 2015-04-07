@@ -21810,20 +21810,20 @@ var Shift = React.createClass({displayName: "Shift",
           fastLinks = this.props.options.fastLinks,
           paginationArray = Array.apply(null, {length: this.state.pageCount + 1}).map(Number.call, Number),
           filler =
-            React.createElement("span", {className: "react-shift-nav-arrow"}, "\u00a0"),
+            React.createElement("div", {className: "react-shift-nav-arrow"}, "\u00a0"),
           leftArrow =
-            this.state.page === 0 ? filler : React.createElement("a", {key: "react-shift-previous-page", id: "react-shift-previous-page", className: "react-shift-nav-arrow", href: "#", onClick: this.previousPage}, this.props.options.previousPage),
+            this.state.page === 0 ? filler : React.createElement("div", {key: "react-shift-previous-page", className: "react-shift-nav-arrow"}, React.createElement("a", {id: "react-shift-previous-page", href: "#", onClick: this.previousPage}, this.props.options.previousPage)),
           rightArrow =
-           this.state.page === this.state.pageCount ? filler : React.createElement("a", {key: "react-shift-next-page", id: "react-shift-next-page", className: "react-shift-nav-arrow", href: "#", onClick: this.nextPage}, this.props.options.nextPage),
+           this.state.page === this.state.pageCount ? filler : React.createElement("div", {key: "react-shift-next-page", className: "react-shift-nav-arrow"}, React.createElement("a", {id: "react-shift-next-page", href: "#", onClick: this.nextPage}, this.props.options.nextPage)),
           pagination =
-            React.createElement("span", {id: "react-shift-page-numbers", className: "noselect"}, 
+            React.createElement("span", {key: "react-shift-pagination", id: "react-shift-page-numbers", className: "noselect"}, 
               paginationArray.map(function(n) {
-                return n == self.state.page ? React.createElement("a", {key: self.state.page + n, id: "react-shift-current-page", href: "#"}, n + 1) : React.createElement("a", {key: n, href: "#", onClick: self.skipToPage.bind(null, n)}, n + 1)
+                return n == self.state.page ? React.createElement("a", {key: "currentPage" + self.state.page, id: "react-shift-current-page", href: "#"}, n + 1) : React.createElement("a", {key: "page" + n, href: "#", onClick: self.skipToPage.bind(null, n)}, n + 1)
               })
             )
 
       return (
-        React.createElement("div", {id: "react-shift-wrapper"}, 
+        React.createElement("div", {key: "react-shift", id: "react-shift-wrapper"}, 
           React.createElement("div", {id: "react-shift-page"}, 
             this.props.pages[this.state.page]
           ), 
@@ -21845,18 +21845,30 @@ module.exports = Shift
 var React = require('react/addons'),
 		Shift = require('./react-shift.jsx'),
 		shiftOptions = {
-		  nextPage: "»",
-		  previousPage: "«",
+		  nextPage: ">>>",
+		  previousPage: "<<<",
 		  fastLinks: {
-		    "Photos": 3, // Remember, indexing of an array starts at 0
-		    "About me": 7
+		    "Third page": 2,
+		    "Fifth page": 4
 		  }
 		},
 		pageKey = 0,
 		pagesArray = [
-			React.createElement("div", {key: pageKey++}, "First page"),
-			React.createElement("div", {key: pageKey++}, "Second page"),
-			React.createElement("div", {key: pageKey++}, "Third page")
+			React.createElement("div", {key: pageKey++}, 
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lectus justo, varius eget tellus at, auctor suscipit tellus. Vestibulum ullamcorper urna non purus tempor, eget fermentum eros porta. Proin nulla enim, sagittis nec sagittis eu, faucibus eu erat. Etiam luctus molestie nisi aliquet malesuada. Quisque pellentesque sodales augue, in luctus enim posuere ac. Mauris posuere magna ac condimentum blandit. Proin hendrerit turpis ac vestibulum hendrerit. Quisque non interdum mi."
+			),
+			React.createElement("div", {key: pageKey++}, 
+				"Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam nec sem quis dolor malesuada aliquam in at ipsum. Etiam blandit cursus sapien in molestie. Suspendisse pharetra ante elit, ut vehicula nisi faucibus sit amet. Donec faucibus eu nisi rhoncus finibus. Nunc ac rutrum sapien, in aliquet nunc. Sed at magna et enim facilisis hendrerit. Suspendisse tristique in quam in aliquam. In hac habitasse platea dictumst. Sed at elementum nulla."
+			),
+			React.createElement("div", {key: pageKey++}, 
+				"Nam quis tincidunt turpis. Ut egestas luctus lectus et tincidunt. Sed eget tellus ut lectus tempus iaculis. Phasellus porttitor ultricies mi ut aliquam. Etiam sollicitudin finibus nibh, vitae finibus sapien tempor scelerisque. Phasellus laoreet turpis sed lobortis facilisis. Integer venenatis lobortis ipsum, eget viverra ipsum sodales vitae. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam vitae orci feugiat, laoreet arcu a, hendrerit eros. Vivamus accumsan ante justo. In hac habitasse platea dictumst. Pellentesque fringilla, leo ut cursus viverra, ex nulla tempus diam, maximus dapibus augue magna ac nisi. Ut venenatis, diam sollicitudin euismod sollicitudin, sapien neque egestas nulla, quis venenatis dui metus id libero. Nulla pharetra, odio nec gravida dapibus, erat lectus aliquam tellus, eget consectetur risus nibh et lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut augue sem, laoreet a rhoncus ornare, dapibus consequat magna."
+			),
+			React.createElement("div", {key: pageKey++}, 
+				"Fusce id laoreet neque. Etiam tincidunt sem tortor, eu pharetra lorem tincidunt ut. Nulla tincidunt mattis felis convallis iaculis. Nunc viverra elit vel posuere mollis. Vivamus et ullamcorper orci, sagittis vestibulum nibh. Phasellus vitae neque aliquam, dignissim urna et, facilisis est. Nullam mollis lacinia quam, eu faucibus elit blandit vitae. Etiam tempus tempus fermentum. In eget urna rutrum, finibus purus non, interdum magna. Sed elementum a metus a elementum."
+			),
+			React.createElement("div", {key: pageKey++}, 
+				"Vestibulum interdum dapibus iaculis. Pellentesque a condimentum erat, non tempus erat. Sed pellentesque, arcu eget tristique facilisis, sapien ligula pharetra tellus, at malesuada nisl diam nec purus. Morbi aliquam ante erat, nec hendrerit enim malesuada vel. Sed in lorem quis enim aliquam consectetur eu nec leo. Nulla facilisi. Aenean malesuada risus sed tortor aliquam maximus."
+			)
 		];
 
 React.render(
