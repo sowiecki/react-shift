@@ -1,14 +1,12 @@
 # react-shift
 Creates a carousel component out of an array of JSX trees. Each element of the array is a page of the carousel.
 
-Passing an options object to the carousel component allows customization of the paging arrows and named links.
-
 ## Installation
 ```
 npm install react-shift
 ```
 
-## Usage
+## Getting started
 ```jsx
 var React = require('react/addons'),
 		Shift = require('react-shift'),
@@ -25,6 +23,7 @@ React.render(
 );
 ```
 
+The component can be passed an options object to customize the navigation.
 ## Customization
 ```jsx
 var shiftOptions = {
@@ -52,16 +51,20 @@ div#react-shift-wrapper {
 div#react-shift-page {
 }
 
-/* navigation and pagination */
+/* navigation */
 nav#react-shift-navigation {
 }
-
-/* pagination */
 span#react-shift-page-numbers {
 }
 
 /* navigation arrows */
-a#react-shift-nav-arrow {
+div.react-shift-nav-arrow {
+  display: inline-block; /* Recommended */
+  width: 80px; /* Set to prevent navigation from being nudged on first and last page */
+}
+#react-shift-next-page {
+}
+#react-shift-previous-page {
 }
 
 /* current page number within pagination */

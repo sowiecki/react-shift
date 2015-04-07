@@ -1,10 +1,10 @@
 {
   "name": "react-shift",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "React carousel/slider with pagination.",
   "main": "react-shift.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -15,9 +15,6 @@
     "slider",
     "carousel"
   ],
-  "scripts": {
-    "test": "jest"
-  },
   "author": "Sean Owiecki <seanowiecki@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -30,6 +27,7 @@
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.6.0",
+    "grunt-contrib-watch": "^0.6.1",
     "grunt-react": "^0.12.1",
     "jest": "^0.1.39",
     "matchdep": "^0.3.0",
