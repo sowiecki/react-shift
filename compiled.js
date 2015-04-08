@@ -21797,7 +21797,7 @@ var Shift = React.createClass({displayName: "Shift",
     componentDidMount: function() {
       this.setState({
         mounted: true,
-        pageCount: this.props.pages.length - 1
+        pageCount: this.props.children.length - 1
       });
     },
     nextPage: function() {
@@ -21830,8 +21830,8 @@ var Shift = React.createClass({displayName: "Shift",
         React.createElement("div", {key: "react-shift", id: "react-shift-wrapper"}, 
           React.createElement("div", {id: "react-shift-page"}, 
             this.props.options.transitions ? React.createElement(ReactCSSTransitionGroup, {transitionName: "react-shift-page"}, 
-              this.props.pages[this.state.page]
-            ) : this.props.pages[this.state.page]
+              this.props.children[this.state.page]
+            ) : this.props.children[this.state.page]
           ), 
           React.createElement("nav", {id: "react-shift-navigation"}, 
             React.createElement("div", {id: "react-shift-fast-links"}, 
@@ -21859,27 +21859,26 @@ var React = require('react/addons'),
 		  },
 		  transitions: true
 		},
-		pageKey = 0,
-		pagesArray = [
-			React.createElement("div", {key: pageKey++}, 
-				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lectus justo, varius eget tellus at, auctor suscipit tellus. Vestibulum ullamcorper urna non purus tempor, eget fermentum eros porta. Proin nulla enim, sagittis nec sagittis eu, faucibus eu erat. Etiam luctus molestie nisi aliquet malesuada. Quisque pellentesque sodales augue, in luctus enim posuere ac. Mauris posuere magna ac condimentum blandit. Proin hendrerit turpis ac vestibulum hendrerit. Quisque non interdum mi."
-			),
-			React.createElement("div", {key: pageKey++}, 
-				"Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam nec sem quis dolor malesuada aliquam in at ipsum. Etiam blandit cursus sapien in molestie. Suspendisse pharetra ante elit, ut vehicula nisi faucibus sit amet. Donec faucibus eu nisi rhoncus finibus. Nunc ac rutrum sapien, in aliquet nunc. Sed at magna et enim facilisis hendrerit. Suspendisse tristique in quam in aliquam. In hac habitasse platea dictumst. Sed at elementum nulla."
-			),
-			React.createElement("div", {key: pageKey++}, 
-				"Nam quis tincidunt turpis. Ut egestas luctus lectus et tincidunt. Sed eget tellus ut lectus tempus iaculis. Phasellus porttitor ultricies mi ut aliquam. Etiam sollicitudin finibus nibh, vitae finibus sapien tempor scelerisque. Phasellus laoreet turpis sed lobortis facilisis. Integer venenatis lobortis ipsum, eget viverra ipsum sodales vitae. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam vitae orci feugiat, laoreet arcu a, hendrerit eros. Vivamus accumsan ante justo. In hac habitasse platea dictumst. Pellentesque fringilla, leo ut cursus viverra, ex nulla tempus diam, maximus dapibus augue magna ac nisi. Ut venenatis, diam sollicitudin euismod sollicitudin, sapien neque egestas nulla, quis venenatis dui metus id libero. Nulla pharetra, odio nec gravida dapibus, erat lectus aliquam tellus, eget consectetur risus nibh et lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut augue sem, laoreet a rhoncus ornare, dapibus consequat magna."
-			),
-			React.createElement("div", {key: pageKey++}, 
-				"Fusce id laoreet neque. Etiam tincidunt sem tortor, eu pharetra lorem tincidunt ut. Nulla tincidunt mattis felis convallis iaculis. Nunc viverra elit vel posuere mollis. Vivamus et ullamcorper orci, sagittis vestibulum nibh. Phasellus vitae neque aliquam, dignissim urna et, facilisis est. Nullam mollis lacinia quam, eu faucibus elit blandit vitae. Etiam tempus tempus fermentum. In eget urna rutrum, finibus purus non, interdum magna. Sed elementum a metus a elementum."
-			),
-			React.createElement("div", {key: pageKey++}, 
-				"Vestibulum interdum dapibus iaculis. Pellentesque a condimentum erat, non tempus erat. Sed pellentesque, arcu eget tristique facilisis, sapien ligula pharetra tellus, at malesuada nisl diam nec purus. Morbi aliquam ante erat, nec hendrerit enim malesuada vel. Sed in lorem quis enim aliquam consectetur eu nec leo. Nulla facilisi. Aenean malesuada risus sed tortor aliquam maximus."
-			)
-		];
+		pageKey = 0;
 
 React.render(
-  React.createElement(Shift, {options: shiftOptions, pages: pagesArray}),
+  React.createElement(Shift, {options: shiftOptions}, 
+  	React.createElement("div", {key: pageKey++}, 
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lectus justo, varius eget tellus at, auctor suscipit tellus. Vestibulum ullamcorper urna non purus tempor, eget fermentum eros porta. Proin nulla enim, sagittis nec sagittis eu, faucibus eu erat. Etiam luctus molestie nisi aliquet malesuada. Quisque pellentesque sodales augue, in luctus enim posuere ac. Mauris posuere magna ac condimentum blandit. Proin hendrerit turpis ac vestibulum hendrerit. Quisque non interdum mi."
+		), 
+		React.createElement("div", {key: pageKey++}, 
+			"Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam nec sem quis dolor malesuada aliquam in at ipsum. Etiam blandit cursus sapien in molestie. Suspendisse pharetra ante elit, ut vehicula nisi faucibus sit amet. Donec faucibus eu nisi rhoncus finibus. Nunc ac rutrum sapien, in aliquet nunc. Sed at magna et enim facilisis hendrerit. Suspendisse tristique in quam in aliquam. In hac habitasse platea dictumst. Sed at elementum nulla."
+		), 
+		React.createElement("div", {key: pageKey++}, 
+			"Nam quis tincidunt turpis. Ut egestas luctus lectus et tincidunt. Sed eget tellus ut lectus tempus iaculis. Phasellus porttitor ultricies mi ut aliquam. Etiam sollicitudin finibus nibh, vitae finibus sapien tempor scelerisque. Phasellus laoreet turpis sed lobortis facilisis. Integer venenatis lobortis ipsum, eget viverra ipsum sodales vitae. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam vitae orci feugiat, laoreet arcu a, hendrerit eros. Vivamus accumsan ante justo. In hac habitasse platea dictumst. Pellentesque fringilla, leo ut cursus viverra, ex nulla tempus diam, maximus dapibus augue magna ac nisi. Ut venenatis, diam sollicitudin euismod sollicitudin, sapien neque egestas nulla, quis venenatis dui metus id libero. Nulla pharetra, odio nec gravida dapibus, erat lectus aliquam tellus, eget consectetur risus nibh et lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut augue sem, laoreet a rhoncus ornare, dapibus consequat magna."
+		), 
+		React.createElement("div", {key: pageKey++}, 
+			"Fusce id laoreet neque. Etiam tincidunt sem tortor, eu pharetra lorem tincidunt ut. Nulla tincidunt mattis felis convallis iaculis. Nunc viverra elit vel posuere mollis. Vivamus et ullamcorper orci, sagittis vestibulum nibh. Phasellus vitae neque aliquam, dignissim urna et, facilisis est. Nullam mollis lacinia quam, eu faucibus elit blandit vitae. Etiam tempus tempus fermentum. In eget urna rutrum, finibus purus non, interdum magna. Sed elementum a metus a elementum."
+		), 
+		React.createElement("div", {key: pageKey++}, 
+			"Vestibulum interdum dapibus iaculis. Pellentesque a condimentum erat, non tempus erat. Sed pellentesque, arcu eget tristique facilisis, sapien ligula pharetra tellus, at malesuada nisl diam nec purus. Morbi aliquam ante erat, nec hendrerit enim malesuada vel. Sed in lorem quis enim aliquam consectetur eu nec leo. Nulla facilisi. Aenean malesuada risus sed tortor aliquam maximus."
+		)
+  ),
   document.getElementById("react-shift-anchor")
 );
 },{"./react-shift.jsx":174,"react/addons":2}]},{},[175]);

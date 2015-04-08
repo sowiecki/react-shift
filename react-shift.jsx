@@ -34,7 +34,7 @@ var Shift = React.createClass({
     componentDidMount: function() {
       this.setState({
         mounted: true,
-        pageCount: this.props.pages.length - 1
+        pageCount: this.props.children.length - 1
       });
     },
     nextPage: function() {
@@ -67,8 +67,8 @@ var Shift = React.createClass({
         <div key="react-shift" id="react-shift-wrapper">
           <div id="react-shift-page">
             {this.props.options.transitions ? <ReactCSSTransitionGroup transitionName="react-shift-page">
-              {this.props.pages[this.state.page]}
-            </ReactCSSTransitionGroup> : this.props.pages[this.state.page]}
+              {this.props.children[this.state.page]}
+            </ReactCSSTransitionGroup> : this.props.children[this.state.page]}
           </div>
           <nav id="react-shift-navigation">
             <div id="react-shift-fast-links">

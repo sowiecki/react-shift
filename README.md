@@ -1,5 +1,7 @@
 # react-shift
-Creates a carousel component out of an array of JSX trees. Each element of the array is a page of the carousel.
+Creates a carousel component out of [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) trees. Intended to be light-weight and easy to get started with. React-Shift can be used to serve a simple static webpage or dropped as a small component into a larger stack.
+
+Version 0.3.x does away with passing JSX as an array. It now uses the more idiomatic way of simply wrapping child elements in the component.
 
 ## Installation
 ```
@@ -9,22 +11,21 @@ npm install react-shift
 ## Getting started
 ```jsx
 var React = require('react/addons'),
-		Shift = require('react-shift'),
-		pageKey = 0,
-		pagesArray = [
-			<div key={pageKey++}>First page</div>,
-			<div key={pageKey++}>Second page</div>,
-			<div key={pageKey++}>Third page</div>
-		];
+	Shift = require('react-shift'),
+	pageKey = 0;
 
 React.render(
-  <Shift pages={pagesArray}/>,
+  <Shift>
+    <div key={pageKey++}>First page</div>
+    <div key={pageKey++}>Second page</div>
+    <div key={pageKey++}>Third page</div>
+  </Shift>,
   document.getElementById("react-shift-anchor")
 );
 ```
 
 ## Customization
-The component can be passed an options object to customize the navigation.
+The component can be passed an options object to customize the navigation. ```fastLinks``` creates a shortcut link to a page, where the key is the link name and the value is the page index.
 ```jsx
 var shiftOptions = {
   nextPage: "»",
@@ -36,7 +37,11 @@ var shiftOptions = {
 }
 
 React.render(
-  <Shift options={shiftOptions} pages={pagesArray}/>,
+  <Shift options={shiftOptions}>
+    <div key={pageKey++}>First page</div>
+    <div key={pageKey++}>Second page</div>
+    <div key={pageKey++}>Third page</div>
+  </Shift>,
   document.getElementById("react-shift-anchor")
 );
 ```
@@ -54,24 +59,26 @@ div#react-shift-page {
 /* navigation */
 nav#react-shift-navigation {
 }
-span#react-shift-page-numbers {
-}
 
 /* navigation arrows */
 div.react-shift-nav-arrow {
   display: inline-block; /* Recommended */
-  width: 80px; /* Set to prevent navigation from being nudged on first and last page */
+  width: 80px; /* Set to maintain spacing on arrow exit */
 }
 #react-shift-next-page {
 }
 #react-shift-previous-page {
 }
 
-/* current page number within pagination */
+/* pagination */
+span#react-shift-page-numbers {
+}
 a#react-shift-current-page {
 }
 
 /* fast links */
+div#react-shift-fast-links {
+}
 a.react-shift-fast-link {
 }
 ```
