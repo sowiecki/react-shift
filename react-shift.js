@@ -12,8 +12,7 @@ var Shift = React.createClass({displayName: "Shift",
         previousPage: React.PropTypes.string,
         fastLinks: React.PropTypes.object,
         transitions: React.PropTypes.bool
-      }),
-      pages: React.PropTypes.array.isRequired
+      })
     },
     getDefaultProps: function() {
       return {
@@ -34,7 +33,7 @@ var Shift = React.createClass({displayName: "Shift",
     componentDidMount: function() {
       this.setState({
         mounted: true,
-        pageCount: this.props.pages.length - 1
+        pageCount: this.props.children.length - 1
       });
     },
     nextPage: function() {
@@ -67,8 +66,8 @@ var Shift = React.createClass({displayName: "Shift",
         React.createElement("div", {key: "react-shift", id: "react-shift-wrapper"}, 
           React.createElement("div", {id: "react-shift-page"}, 
             this.props.options.transitions ? React.createElement(ReactCSSTransitionGroup, {transitionName: "react-shift-page"}, 
-              this.props.pages[this.state.page]
-            ) : this.props.pages[this.state.page]
+              this.props.children[this.state.page]
+            ) : this.props.children[this.state.page]
           ), 
           React.createElement("nav", {id: "react-shift-navigation"}, 
             React.createElement("div", {id: "react-shift-fast-links"}, 

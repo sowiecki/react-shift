@@ -12,8 +12,7 @@ var Shift = React.createClass({
         previousPage: React.PropTypes.string,
         fastLinks: React.PropTypes.object,
         transitions: React.PropTypes.bool
-      }),
-      pages: React.PropTypes.array.isRequired
+      })
     },
     getDefaultProps: function() {
       return {

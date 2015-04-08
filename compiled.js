@@ -21775,8 +21775,7 @@ var Shift = React.createClass({displayName: "Shift",
         previousPage: React.PropTypes.string,
         fastLinks: React.PropTypes.object,
         transitions: React.PropTypes.bool
-      }),
-      pages: React.PropTypes.array.isRequired
+      })
     },
     getDefaultProps: function() {
       return {
@@ -21864,7 +21863,7 @@ var React = require('react/addons'),
 React.render(
   React.createElement(Shift, {options: shiftOptions}, 
   	React.createElement("div", {key: pageKey++}, 
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lectus justo, varius eget tellus at, auctor suscipit tellus. Vestibulum ullamcorper urna non purus tempor, eget fermentum eros porta. Proin nulla enim, sagittis nec sagittis eu, faucibus eu erat. Etiam luctus molestie nisi aliquet malesuada. Quisque pellentesque sodales augue, in luctus enim posuere ac. Mauris posuere magna ac condimentum blandit. Proin hendrerit turpis ac vestibulum hendrerit. Quisque non interdum mi."
+			React.createElement("p", null, "Test"), "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lectus justo, varius eget tellus at, auctor suscipit tellus. Vestibulum ullamcorper urna non purus tempor, eget fermentum eros porta. Proin nulla enim, sagittis nec sagittis eu, faucibus eu erat. Etiam luctus molestie nisi aliquet malesuada. Quisque pellentesque sodales augue, in luctus enim posuere ac. Mauris posuere magna ac condimentum blandit. Proin hendrerit turpis ac vestibulum hendrerit. Quisque non interdum mi."
 		), 
 		React.createElement("div", {key: pageKey++}, 
 			"Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam nec sem quis dolor malesuada aliquam in at ipsum. Etiam blandit cursus sapien in molestie. Suspendisse pharetra ante elit, ut vehicula nisi faucibus sit amet. Donec faucibus eu nisi rhoncus finibus. Nunc ac rutrum sapien, in aliquet nunc. Sed at magna et enim facilisis hendrerit. Suspendisse tristique in quam in aliquam. In hac habitasse platea dictumst. Sed at elementum nulla."
