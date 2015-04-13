@@ -56,11 +56,20 @@ var Shift = React.createClass({displayName: "Shift",
           rightArrow =
            this.state.page === this.state.pageCount ? filler : React.createElement("div", {key: "react-shift-next-page", className: "react-shift-nav-arrow"}, React.createElement("a", {id: "react-shift-next-page", href: "#", onClick: this.nextPage}, this.props.options.nextPage)),
           pagination =
-            React.createElement("span", {key: "react-shift-pagination", id: "react-shift-page-numbers", className: "noselect"}, 
+            React.createElement("span", {key: "react-shift-page-numbers", id: "react-shift-pagination", className: "react-shift-pagination"}, 
               paginationArray.map(function(n) {
-                return n == self.state.page ? React.createElement("a", {key: "currentPage" + self.state.page, id: "react-shift-current-page", href: "#"}, n + 1) : React.createElement("a", {key: "page" + n, href: "#", onClick: self.skipToPage.bind(null, n)}, n + 1)
+                return n == self.state.page ? React.createElement("a", {key: "currentPage-" + self.state.page, id: "page-" + n, className: "react-shift-page-number react-shift-current-page", href: "#"}, n + 1) : React.createElement("a", {key: "page" + n, id: "page-" + n, className: "react-shift-page-number", href: "#", onClick: self.skipToPage.bind(null, n)}, n + 1)
               })
             )
+
+          if (this.props.options.fastLinks) {
+            var fastLinksList =
+              React.createElement("div", {id: "react-shift-fast-links"}, 
+                Object.keys(fastLinks).map(function(i, v) {
+                  return React.createElement("a", {key: "fastLink" + i, className: "react-shift-fast-link", href: "#", onClick: self.skipToPage.bind(null, fastLinks[i])}, Object.keys(fastLinks)[v]);
+                })
+              )
+          } else { var fastLinksList; }
 
       return (
         React.createElement("div", {key: "react-shift", id: "react-shift-wrapper"}, 
@@ -70,11 +79,7 @@ var Shift = React.createClass({displayName: "Shift",
             ) : this.props.children[this.state.page]
           ), 
           React.createElement("nav", {id: "react-shift-navigation"}, 
-            React.createElement("div", {id: "react-shift-fast-links"}, 
-              Object.keys(fastLinks).map(function(i, v) {
-                return React.createElement("a", {key: "fastLink" + i, className: "react-shift-fast-link", href: "#", onClick: self.skipToPage.bind(null, fastLinks[i])}, Object.keys(fastLinks)[v]);
-              })
-            ), 
+            fastLinksList, 
             leftArrow, pagination, rightArrow
           )
         )

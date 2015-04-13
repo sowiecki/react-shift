@@ -56,11 +56,20 @@ var Shift = React.createClass({
           rightArrow =
            this.state.page === this.state.pageCount ? filler : <div key="react-shift-next-page" className="react-shift-nav-arrow"><a id="react-shift-next-page" href="#" onClick={this.nextPage}>{this.props.options.nextPage}</a></div>,
           pagination =
-            <span key="react-shift-pagination" id="react-shift-page-numbers" className="noselect">
+            <span key="react-shift-page-numbers" id="react-shift-pagination" className="react-shift-pagination">
               {paginationArray.map(function(n) {
-                return n == self.state.page ? <a key={"currentPage" + self.state.page} id="react-shift-current-page" href="#">{n + 1}</a> : <a key={"page" + n} href="#" onClick={self.skipToPage.bind(null, n)}>{n + 1}</a>
+                return n == self.state.page ? <a key={"currentPage-" + self.state.page} id={"page-" + n} className="react-shift-page-number react-shift-current-page" href="#">{n + 1}</a> : <a key={"page" + n} id={"page-" + n} className="react-shift-page-number" href="#" onClick={self.skipToPage.bind(null, n)}>{n + 1}</a>
               })}
             </span>
+
+          if (this.props.options.fastLinks) {
+            var fastLinksList =
+              <div id="react-shift-fast-links">
+                {Object.keys(fastLinks).map(function(i, v) {
+                  return <a key={"fastLink" + i} className="react-shift-fast-link" href="#" onClick={self.skipToPage.bind(null, fastLinks[i])}>{Object.keys(fastLinks)[v]}</a>;
+                })}
+              </div>
+          } else { var fastLinksList; }
 
       return (
         <div key="react-shift" id="react-shift-wrapper">
@@ -70,11 +79,7 @@ var Shift = React.createClass({
             </ReactCSSTransitionGroup> : this.props.children[this.state.page]}
           </div>
           <nav id="react-shift-navigation">
-            <div id="react-shift-fast-links">
-              {Object.keys(fastLinks).map(function(i, v) {
-                return <a key={"fastLink" + i} className="react-shift-fast-link" href="#" onClick={self.skipToPage.bind(null, fastLinks[i])}>{Object.keys(fastLinks)[v]}</a>;
-              })}
-            </div>
+            {fastLinksList}
             {leftArrow, pagination, rightArrow}
           </nav>
         </div>

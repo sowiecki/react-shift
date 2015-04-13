@@ -21819,11 +21819,20 @@ var Shift = React.createClass({displayName: "Shift",
           rightArrow =
            this.state.page === this.state.pageCount ? filler : React.createElement("div", {key: "react-shift-next-page", className: "react-shift-nav-arrow"}, React.createElement("a", {id: "react-shift-next-page", href: "#", onClick: this.nextPage}, this.props.options.nextPage)),
           pagination =
-            React.createElement("span", {key: "react-shift-pagination", id: "react-shift-page-numbers", className: "noselect"}, 
+            React.createElement("span", {key: "react-shift-page-numbers", id: "react-shift-pagination", className: "react-shift-pagination"}, 
               paginationArray.map(function(n) {
-                return n == self.state.page ? React.createElement("a", {key: "currentPage" + self.state.page, id: "react-shift-current-page", href: "#"}, n + 1) : React.createElement("a", {key: "page" + n, href: "#", onClick: self.skipToPage.bind(null, n)}, n + 1)
+                return n == self.state.page ? React.createElement("a", {key: "currentPage-" + self.state.page, id: "page-" + n, className: "react-shift-page-number react-shift-current-page", href: "#"}, n + 1) : React.createElement("a", {key: "page" + n, id: "page-" + n, className: "react-shift-page-number", href: "#", onClick: self.skipToPage.bind(null, n)}, n + 1)
               })
             )
+
+          if (this.props.options.fastLinks) {
+            var fastLinksList =
+              React.createElement("div", {id: "react-shift-fast-links"}, 
+                Object.keys(fastLinks).map(function(i, v) {
+                  return React.createElement("a", {key: "fastLink" + i, className: "react-shift-fast-link", href: "#", onClick: self.skipToPage.bind(null, fastLinks[i])}, Object.keys(fastLinks)[v]);
+                })
+              )
+          } else { var fastLinksList; }
 
       return (
         React.createElement("div", {key: "react-shift", id: "react-shift-wrapper"}, 
@@ -21833,11 +21842,7 @@ var Shift = React.createClass({displayName: "Shift",
             ) : this.props.children[this.state.page]
           ), 
           React.createElement("nav", {id: "react-shift-navigation"}, 
-            React.createElement("div", {id: "react-shift-fast-links"}, 
-              Object.keys(fastLinks).map(function(i, v) {
-                return React.createElement("a", {key: "fastLink" + i, className: "react-shift-fast-link", href: "#", onClick: self.skipToPage.bind(null, fastLinks[i])}, Object.keys(fastLinks)[v]);
-              })
-            ), 
+            fastLinksList, 
             leftArrow, pagination, rightArrow
           )
         )
@@ -21863,7 +21868,7 @@ var React = require('react/addons'),
 React.render(
   React.createElement(Shift, {options: shiftOptions}, 
   	React.createElement("div", {key: pageKey++}, 
-			React.createElement("p", null, "Test"), "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lectus justo, varius eget tellus at, auctor suscipit tellus. Vestibulum ullamcorper urna non purus tempor, eget fermentum eros porta. Proin nulla enim, sagittis nec sagittis eu, faucibus eu erat. Etiam luctus molestie nisi aliquet malesuada. Quisque pellentesque sodales augue, in luctus enim posuere ac. Mauris posuere magna ac condimentum blandit. Proin hendrerit turpis ac vestibulum hendrerit. Quisque non interdum mi."
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lectus justo, varius eget tellus at, auctor suscipit tellus. Vestibulum ullamcorper urna non purus tempor, eget fermentum eros porta. Proin nulla enim, sagittis nec sagittis eu, faucibus eu erat. Etiam luctus molestie nisi aliquet malesuada. Quisque pellentesque sodales augue, in luctus enim posuere ac. Mauris posuere magna ac condimentum blandit. Proin hendrerit turpis ac vestibulum hendrerit. Quisque non interdum mi."
 		), 
 		React.createElement("div", {key: pageKey++}, 
 			"Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam nec sem quis dolor malesuada aliquam in at ipsum. Etiam blandit cursus sapien in molestie. Suspendisse pharetra ante elit, ut vehicula nisi faucibus sit amet. Donec faucibus eu nisi rhoncus finibus. Nunc ac rutrum sapien, in aliquet nunc. Sed at magna et enim facilisis hendrerit. Suspendisse tristique in quam in aliquam. In hac habitasse platea dictumst. Sed at elementum nulla."
