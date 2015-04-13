@@ -73,15 +73,15 @@ div.react-shift-nav-arrow {
   display: inline-block; /* Recommended */
   width: 80px; /* Set to maintain spacing on arrow exit */
 }
-#react-shift-next-page {
+a#react-shift-next-page {
 }
-#react-shift-previous-page {
+a#react-shift-previous-page {
 }
 
 /* pagination */
-span#react-shift-page-numbers {
+span#react-shift-pagination {
 }
-a#react-shift-current-page {
+a.react-shift-current-page {
 }
 
 /* fast links */
