@@ -1,8 +1,6 @@
 # react-shift
 Creates a carousel component out of [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) trees. Intended to be light-weight and easy to get started with. React-Shift can be used to serve a simple static webpage or dropped as a small component into a larger stack.
 
-Version 0.3.x does away with passing JSX as an array. It now uses the more idiomatic way of simply wrapping child elements in the component.
-
 ## Installation
 ```
 npm install react-shift
@@ -25,19 +23,29 @@ React.render(
 ```
 
 ## Customization
-The component can be passed an options object to customize the navigation. ```fastLinks``` creates a shortcut link to a page, where the key is the link name and the value is the page index.
+The component can be passed objects to customize the navigation.
+
+* ```nextAndPrev``` specifies custom next and previous page link labels.
+
+* ```fastLinks``` creates a shortcut link to a page, where the key is the link name and the value is the page index.
+
+* ```scrollable``` specifies if scrolling triggers page change. Scrolling tied to the entire component wrapper. Defaults to ```true```.
+
+* ```transitions``` specifies if [ReactCSSTransitionGroup](https://facebook.github.io/react/docs/animation.html) is applied to page transitions. Defaults to ```false```.
+
+Example:
 ```jsx
-var shiftOptions = {
-  nextPage: "»",
-  previousPage: "«",
-  fastLinks: {
-    "Photos": 3, // Remember, indexing of an array starts at 0
-    "About me": 7
-  }
-}
+var nextAndPrev = {
+      nextPage: ">>>",
+      previousPage: "<<<"
+    },
+    fastLinks = {
+      "Third page": 2,
+      "Fifth page": 4
+    },
 
 React.render(
-  <Shift options={shiftOptions}>
+  <Shift nextAndPrev={nextAndPrev} fastLinks={fastLinks} scrollable={false}>
     <div key={pageKey++}>First page</div>
     <div key={pageKey++}>Second page</div>
     <div key={pageKey++}>Third page</div>
@@ -83,10 +91,9 @@ a.react-shift-fast-link {
 }
 ```
 
-## Transition animations
-Pass ```Object.options.transitions: true ``` to activate transition animations. Transitions are controlled by ReactCSSTransitionGroup.
+## Transition animations example
 ```css
-/* minimum required for page transition */
+/* minimum required for clean page transition */
 .react-shift-page-enter {  
   position: absolute;
   right: 0; left: 0;

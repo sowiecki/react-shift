@@ -19,7 +19,9 @@
   transition: opacity .25s ease-in;
 }
 
-div#react-shift-wrapper {  
+div#react-shift-wrapper {
+	height: 100%;
+	width: 100%;
 	font-family: Helvetica;
 }
 

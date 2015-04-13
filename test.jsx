@@ -1,18 +1,17 @@
 var React = require('react/addons'),
 		Shift = require('./react-shift.jsx'),
-		shiftOptions = {
+		nextAndPrev = {
 		  nextPage: ">>>",
-		  previousPage: "<<<",
-		  fastLinks: {
-		    "Third page": 2,
-		    "Fifth page": 4
-		  },
-		  transitions: true
+		  previousPage: "<<<"
 		},
+	  fastLinks = {
+	    "Third page": 2,
+	    "Fifth page": 4
+	  },
 		pageKey = 0;
 
 React.render(
-  <Shift options={shiftOptions}>
+  <Shift nextAndPrev={nextAndPrev} fastLinks={fastLinks} transitions={true}>
   	<div key={pageKey++}>
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lectus justo, varius eget tellus at, auctor suscipit tellus. Vestibulum ullamcorper urna non purus tempor, eget fermentum eros porta. Proin nulla enim, sagittis nec sagittis eu, faucibus eu erat. Etiam luctus molestie nisi aliquet malesuada. Quisque pellentesque sodales augue, in luctus enim posuere ac. Mauris posuere magna ac condimentum blandit. Proin hendrerit turpis ac vestibulum hendrerit. Quisque non interdum mi.
 		</div>

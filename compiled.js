@@ -21769,21 +21769,23 @@ var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 // Carousel
 var Shift = React.createClass({displayName: "Shift",
     propTypes: {
-      options: React.PropTypes.object,
-      options: React.PropTypes.shape({
+      nextAndPrev: React.PropTypes.object,
+      nextAndPrev: React.PropTypes.shape({
         nextPage: React.PropTypes.string,
-        previousPage: React.PropTypes.string,
-        fastLinks: React.PropTypes.object,
-        transitions: React.PropTypes.bool
-      })
+        previousPage: React.PropTypes.string
+      }),
+      fastLinks: React.PropTypes.object,
+      transitions: React.PropTypes.bool,
+      scrollable: React.PropTypes.bool
     },
     getDefaultProps: function() {
       return {
-        options: {
+        nextAndPrev: {
           nextPage: "Next page",
-          previousPage: "Previous page",
-          fastLinks: {}
-        }
+          previousPage: "Previous page"
+        },
+        fastLinks: {},
+        scrollable: true
       };
     },
     getInitialState: function() {
@@ -21796,7 +21798,8 @@ var Shift = React.createClass({displayName: "Shift",
     componentDidMount: function() {
       this.setState({
         mounted: true,
-        pageCount: this.props.children.length - 1
+        pageCount: this.props.children.length - 1,
+        scrollable: this.props.scrollable
       });
     },
     nextPage: function() {
@@ -21808,16 +21811,25 @@ var Shift = React.createClass({displayName: "Shift",
     skipToPage: function(n) {
       this.setState({page: n});
     },
+    handleWheel: function(e) {
+      if (this.props.scrollable) {
+        if (e.deltaY > 0) {
+          this.nextPage();
+        } else {
+          this.previousPage();
+        };
+      };
+    },
     render: function() {
       var self = this,
-          fastLinks = this.props.options.fastLinks,
+          fastLinks = this.props.fastLinks,
           paginationArray = Array.apply(null, {length: this.state.pageCount + 1}).map(Number.call, Number),
           filler =
             React.createElement("div", {className: "react-shift-nav-arrow"}, "\u00a0"),
           leftArrow =
-            this.state.page === 0 ? filler : React.createElement("div", {key: "react-shift-previous-page", className: "react-shift-nav-arrow"}, React.createElement("a", {id: "react-shift-previous-page", href: "#", onClick: this.previousPage}, this.props.options.previousPage)),
+            this.state.page === 0 ? filler : React.createElement("div", {key: "react-shift-previous-page", className: "react-shift-nav-arrow"}, React.createElement("a", {id: "react-shift-previous-page", href: "#", onClick: this.previousPage}, this.props.nextAndPrev.previousPage)),
           rightArrow =
-           this.state.page === this.state.pageCount ? filler : React.createElement("div", {key: "react-shift-next-page", className: "react-shift-nav-arrow"}, React.createElement("a", {id: "react-shift-next-page", href: "#", onClick: this.nextPage}, this.props.options.nextPage)),
+           this.state.page === this.state.pageCount ? filler : React.createElement("div", {key: "react-shift-next-page", className: "react-shift-nav-arrow"}, React.createElement("a", {id: "react-shift-next-page", href: "#", onClick: this.nextPage}, this.props.nextAndPrev.nextPage)),
           pagination =
             React.createElement("span", {key: "react-shift-page-numbers", id: "react-shift-pagination", className: "react-shift-pagination"}, 
               paginationArray.map(function(n) {
@@ -21825,19 +21837,21 @@ var Shift = React.createClass({displayName: "Shift",
               })
             )
 
-          if (this.props.options.fastLinks) {
+          if (this.props.fastLinks) {
             var fastLinksList =
               React.createElement("div", {id: "react-shift-fast-links"}, 
                 Object.keys(fastLinks).map(function(i, v) {
                   return React.createElement("a", {key: "fastLink" + i, className: "react-shift-fast-link", href: "#", onClick: self.skipToPage.bind(null, fastLinks[i])}, Object.keys(fastLinks)[v]);
                 })
               )
-          } else { var fastLinksList; }
+          } else {
+            var fastLinksList;
+          };
 
       return (
-        React.createElement("div", {key: "react-shift", id: "react-shift-wrapper"}, 
+        React.createElement("div", {key: "react-shift", id: "react-shift-wrapper", onWheelCapture: this.handleWheel}, 
           React.createElement("div", {id: "react-shift-page"}, 
-            this.props.options.transitions ? React.createElement(ReactCSSTransitionGroup, {transitionName: "react-shift-page"}, 
+            this.props.transitions ? React.createElement(ReactCSSTransitionGroup, {transitionName: "react-shift-page"}, 
               this.props.children[this.state.page]
             ) : this.props.children[this.state.page]
           ), 
@@ -21850,23 +21864,22 @@ var Shift = React.createClass({displayName: "Shift",
     }
   });
 
-module.exports = Shift
+module.exports = Shift;
 },{"react/addons":2}],175:[function(require,module,exports){
 var React = require('react/addons'),
 		Shift = require('./react-shift.jsx'),
-		shiftOptions = {
+		nextAndPrev = {
 		  nextPage: ">>>",
-		  previousPage: "<<<",
-		  fastLinks: {
-		    "Third page": 2,
-		    "Fifth page": 4
-		  },
-		  transitions: true
+		  previousPage: "<<<"
 		},
+	  fastLinks = {
+	    "Third page": 2,
+	    "Fifth page": 4
+	  },
 		pageKey = 0;
 
 React.render(
-  React.createElement(Shift, {options: shiftOptions}, 
+  React.createElement(Shift, {nextAndPrev: nextAndPrev, fastLinks: fastLinks, transitions: true}, 
   	React.createElement("div", {key: pageKey++}, 
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lectus justo, varius eget tellus at, auctor suscipit tellus. Vestibulum ullamcorper urna non purus tempor, eget fermentum eros porta. Proin nulla enim, sagittis nec sagittis eu, faucibus eu erat. Etiam luctus molestie nisi aliquet malesuada. Quisque pellentesque sodales augue, in luctus enim posuere ac. Mauris posuere magna ac condimentum blandit. Proin hendrerit turpis ac vestibulum hendrerit. Quisque non interdum mi."
 		), 
