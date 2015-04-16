@@ -3,8 +3,8 @@
 var React = require('react/addons'),
 		Shift = require('./react-shift.jsx'),
 		arrowLabels = {
-		  nextPage: ">>>",
-		  previousPage: "<<<"
+		  next: ">>>",
+		  previous: "<<<"
 		},
 	  fastLinks = {
 	    "Third page": 2,

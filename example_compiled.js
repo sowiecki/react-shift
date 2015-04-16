@@ -4,8 +4,8 @@ var React = require('react/addons');
 var Arrow = React.createClass({displayName: "Arrow",
     render: function() {
       return (
-        React.createElement("div", {key: "react-shift-previous-page", className: "react-shift-nav-arrow"}, 
-          React.createElement("a", {id: "react-shift-previous-page", href: "#", onClick: this.props.on_click}, 
+        React.createElement("div", {className: "react-shift-nav-arrow"}, 
+          React.createElement("a", {href: "#", onClick: this.props.on_click}, 
             this.props.label
           )
         )
@@ -20,8 +20,8 @@ module.exports = Arrow;
 var React = require('react/addons'),
 		Shift = require('./react-shift.jsx'),
 		arrowLabels = {
-		  nextPage: ">>>",
-		  previousPage: "<<<"
+		  next: ">>>",
+		  previous: "<<<"
 		},
 	  fastLinks = {
 	    "Third page": 2,
@@ -21821,8 +21821,8 @@ var Shift = React.createClass({displayName: "Shift",
     propTypes: {
       arrowLabels: React.PropTypes.object,
       arrowLabels: React.PropTypes.shape({
-        nextPage: React.PropTypes.string,
-        previousPage: React.PropTypes.string
+        next: React.PropTypes.string,
+        previous: React.PropTypes.string
       }),
       fastLinks: React.PropTypes.object,
       transitions: React.PropTypes.bool,
@@ -21831,8 +21831,8 @@ var Shift = React.createClass({displayName: "Shift",
     getDefaultProps: function() {
       return {
         arrowLabels: {
-          nextPage: "Next page",
-          previousPage: "Previous page"
+          next: "Next page",
+          previous: "Previous page"
         },
         fastLinks: {},
         scrollable: true
@@ -21852,10 +21852,10 @@ var Shift = React.createClass({displayName: "Shift",
         scrollable: this.props.scrollable
       });
     },
-    nextPage: function() {
+    next: function() {
       this.state.page === this.state.pageCount ? null : this.setState({page: this.state.page + 1});
     },
-    previousPage: function() {
+    previous: function() {
       this.state.page === 0 ? null : this.setState({page: this.state.page - 1});
     },
     setPage: function(n) {
@@ -21864,9 +21864,9 @@ var Shift = React.createClass({displayName: "Shift",
     handleWheel: function(e) {
       if (this.props.scrollable) {
         if (e.deltaY > 0) {
-          this.nextPage();
+          this.next();
         } else {
-          this.previousPage();
+          this.previous();
         };
       };
     },
@@ -21880,9 +21880,9 @@ var Shift = React.createClass({displayName: "Shift",
           filler =
             React.createElement("div", {className: "react-shift-nav-arrow"}, "\u00a0"),
           leftArrow =
-            this.state.page === 0 ? filler : React.createElement(Arrow, {label: this.props.arrowLabels.previousPage, on_click: this.previousPage}),
+            this.state.page === 0 ? filler : React.createElement(Arrow, {id: "react-shift-previous-page", label: this.props.arrowLabels.previous, on_click: this.previous}),
           rightArrow =
-           this.state.page === this.state.pageCount ? filler : React.createElement(Arrow, {label: this.props.arrowLabels.nextPage, on_click: this.nextPage}),
+           this.state.page === this.state.pageCount ? filler : React.createElement(Arrow, {id: "react-shift-next-page", label: this.props.arrowLabels.next, on_click: this.next}),
           pagination =
             React.createElement("span", {key: "react-shift-page-numbers", id: "react-shift-pagination", className: "react-shift-pagination"}, 
               paginationArray.map(function(n) {

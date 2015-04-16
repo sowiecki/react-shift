@@ -8,8 +8,8 @@ var Shift = React.createClass({
     propTypes: {
       arrowLabels: React.PropTypes.object,
       arrowLabels: React.PropTypes.shape({
-        nextPage: React.PropTypes.string,
-        previousPage: React.PropTypes.string
+        next: React.PropTypes.string,
+        previous: React.PropTypes.string
       }),
       fastLinks: React.PropTypes.object,
       transitions: React.PropTypes.bool,
@@ -18,8 +18,8 @@ var Shift = React.createClass({
     getDefaultProps: function() {
       return {
         arrowLabels: {
-          nextPage: "Next page",
-          previousPage: "Previous page"
+          next: "Next page",
+          previous: "Previous page"
         },
         fastLinks: {},
         scrollable: true
@@ -39,10 +39,10 @@ var Shift = React.createClass({
         scrollable: this.props.scrollable
       });
     },
-    nextPage: function() {
+    next: function() {
       this.state.page === this.state.pageCount ? null : this.setState({page: this.state.page + 1});
     },
-    previousPage: function() {
+    previous: function() {
       this.state.page === 0 ? null : this.setState({page: this.state.page - 1});
     },
     setPage: function(n) {
@@ -51,9 +51,9 @@ var Shift = React.createClass({
     handleWheel: function(e) {
       if (this.props.scrollable) {
         if (e.deltaY > 0) {
-          this.nextPage();
+          this.next();
         } else {
-          this.previousPage();
+          this.previous();
         };
       };
     },
@@ -67,9 +67,9 @@ var Shift = React.createClass({
           filler =
             <div className="react-shift-nav-arrow">{"\u00a0"}</div>,
           leftArrow =
-            this.state.page === 0 ? filler : <Arrow label={this.props.arrowLabels.previousPage} on_click={this.previousPage} />,
+            this.state.page === 0 ? filler : <Arrow id="react-shift-previous-page" label={this.props.arrowLabels.previous} on_click={this.previous} />,
           rightArrow =
-           this.state.page === this.state.pageCount ? filler : <Arrow label={this.props.arrowLabels.nextPage} on_click={this.nextPage} />,
+           this.state.page === this.state.pageCount ? filler : <Arrow id="react-shift-next-page" label={this.props.arrowLabels.next} on_click={this.next} />,
           pagination =
             <span key="react-shift-page-numbers" id="react-shift-pagination" className="react-shift-pagination">
               {paginationArray.map(function(n) {
