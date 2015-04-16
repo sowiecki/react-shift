@@ -8,8 +8,8 @@ module.exports = function(grunt) {
         ignore: "react"
       },
       app: {
-        src: "test.jsx",
-        dest: "compiled.js"
+        src: "example.jsx",
+        dest: "example_compiled.js"
       }
     },
     react: {
@@ -22,7 +22,7 @@ module.exports = function(grunt) {
       },
     },
     watch: {
-      files: ["./test.jsx"],
+      files: ["./example.jsx"],
       tasks: ["browserify"],
     },
   });

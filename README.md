@@ -14,9 +14,9 @@ var React = require('react/addons'),
 
 React.render(
   <Shift>
-    <div key={pageKey++}>First page</div>
-    <div key={pageKey++}>Second page</div>
-    <div key={pageKey++}>Third page</div>
+    <div>First page</div>
+    <div>Second page</div>
+    <div>Third page</div>
   </Shift>,
   document.getElementById("react-shift-anchor")
 );
