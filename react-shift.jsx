@@ -1,13 +1,13 @@
-var React = require('react/addons');
+var React = require('react/addons'),
+    Arrow = require('./components/arrow.jsx'),
+    ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
-// Dependencies
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+React.initializeTouchEvents(true)
 
-// Carousel
 var Shift = React.createClass({
     propTypes: {
-      nextAndPrev: React.PropTypes.object,
-      nextAndPrev: React.PropTypes.shape({
+      arrowLabels: React.PropTypes.object,
+      arrowLabels: React.PropTypes.shape({
         nextPage: React.PropTypes.string,
         previousPage: React.PropTypes.string
       }),
@@ -17,7 +17,7 @@ var Shift = React.createClass({
     },
     getDefaultProps: function() {
       return {
-        nextAndPrev: {
+        arrowLabels: {
           nextPage: "Next page",
           previousPage: "Previous page"
         },
@@ -45,7 +45,7 @@ var Shift = React.createClass({
     previousPage: function() {
       this.state.page === 0 ? null : this.setState({page: this.state.page - 1});
     },
-    skipToPage: function(n) {
+    setPage: function(n) {
       this.setState({page: n});
     },
     handleWheel: function(e) {
@@ -57,6 +57,9 @@ var Shift = React.createClass({
         };
       };
     },
+    handleTouch: function(e) {
+      console.log(e.changedTouches[0].pageX)
+    },
     render: function() {
       var self = this,
           fastLinks = this.props.fastLinks,
@@ -64,13 +67,13 @@ var Shift = React.createClass({
           filler =
             <div className="react-shift-nav-arrow">{"\u00a0"}</div>,
           leftArrow =
-            this.state.page === 0 ? filler : <div key="react-shift-previous-page" className="react-shift-nav-arrow"><a id="react-shift-previous-page" href="#" onClick={this.previousPage}>{this.props.nextAndPrev.previousPage}</a></div>,
+            this.state.page === 0 ? filler : <Arrow label={this.props.arrowLabels.previousPage} on_click={this.previousPage} />,
           rightArrow =
-           this.state.page === this.state.pageCount ? filler : <div key="react-shift-next-page" className="react-shift-nav-arrow"><a id="react-shift-next-page" href="#" onClick={this.nextPage}>{this.props.nextAndPrev.nextPage}</a></div>,
+           this.state.page === this.state.pageCount ? filler : <Arrow label={this.props.arrowLabels.nextPage} on_click={this.nextPage} />,
           pagination =
             <span key="react-shift-page-numbers" id="react-shift-pagination" className="react-shift-pagination">
               {paginationArray.map(function(n) {
-                return n == self.state.page ? <a key={"currentPage-" + self.state.page} id={"page-" + n} className="react-shift-page-number react-shift-current-page" href="#">{n + 1}</a> : <a key={"page" + n} id={"page-" + n} className="react-shift-page-number" href="#" onClick={self.skipToPage.bind(null, n)}>{n + 1}</a>
+                return n == self.state.page ? <a key={"currentPage-" + self.state.page} id={"page-" + n} className="react-shift-page-number react-shift-current-page" href="#">{n + 1}</a> : <a key={"page" + n} id={"page-" + n} className="react-shift-page-number" href="#" onClick={self.setPage.bind(null, n)}>{n + 1}</a>
               })}
             </span>
 
@@ -78,7 +81,7 @@ var Shift = React.createClass({
             var fastLinksList =
               <div id="react-shift-fast-links">
                 {Object.keys(fastLinks).map(function(i, v) {
-                  return <a key={"fastLink" + i} className="react-shift-fast-link" href="#" onClick={self.skipToPage.bind(null, fastLinks[i])}>{Object.keys(fastLinks)[v]}</a>;
+                  return <a key={"fastLink" + i} className="react-shift-fast-link" href="#" onClick={self.setPage.bind(null, fastLinks[i])}>{Object.keys(fastLinks)[v]}</a>;
                 })}
               </div>
           } else {
@@ -86,7 +89,7 @@ var Shift = React.createClass({
           };
 
       return (
-        <div key="react-shift" id="react-shift-wrapper" onWheelCapture={this.handleWheel}>
+        <div key="react-shift" id="react-shift-wrapper" onWheelCapture={this.handleWheel} onTouchMove={this.handleTouch}>
           <div id="react-shift-page">
             {this.props.transitions ? <ReactCSSTransitionGroup transitionName="react-shift-page">
               {this.props.children[this.state.page]}
