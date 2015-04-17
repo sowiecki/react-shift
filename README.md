@@ -8,49 +8,49 @@ npm install react-shift
 
 ## Getting started
 ```jsx
-var React = require('react/addons'),
-	Shift = require('react-shift'),
-	pageKey = 0;
+var React = require('react/addons')
+	, Shift = require('react-shift')
+	, pageKey = 0;
 
 React.render(
   <Shift>
     <div>First page</div>
     <div>Second page</div>
     <div>Third page</div>
-  </Shift>,
-  document.getElementById("react-shift-anchor")
+  </Shift>
+  , document.getElementById("react-shift-anchor")
 );
 ```
 
 ## Customization
 The component can be passed objects to customize the navigation.
 
-* ```nextAndPrev``` specifies custom next and previous page link labels.
+* ```arrowLabels``` specifies custom next and previous page link labels.
 
 * ```fastLinks``` creates a shortcut link to a page, where the key is the link name and the value is the page index.
 
-* ```scrollable``` specifies if scrolling triggers page change. Scrolling tied to the entire component wrapper. Defaults to ```true```.
+* ```scrollable``` specifies if mouse wheel scrolling triggers page change. The scroll event trigger is attached to ```#react-shift-wrapper```. Defaults to ```true```.
 
 * ```transitions``` specifies if [ReactCSSTransitionGroup](https://facebook.github.io/react/docs/animation.html) is applied to page transitions. Defaults to ```false```.
 
 Example:
 ```jsx
-var nextAndPrev = {
-      nextPage: ">>>",
-      previousPage: "<<<"
-    },
-    fastLinks = {
-      "Third page": 2,
-      "Fifth page": 4
-    },
+var arrowLabels = {
+      next: ">>>"
+      , previous: "<<<"
+    }
+    , fastLinks = {
+      "Third page": 2
+      , "Fifth page": 4
+    }
 
 React.render(
-  <Shift nextAndPrev={nextAndPrev} fastLinks={fastLinks} scrollable={false}>
-    <div key={pageKey++}>First page</div>
-    <div key={pageKey++}>Second page</div>
-    <div key={pageKey++}>Third page</div>
-  </Shift>,
-  document.getElementById("react-shift-anchor")
+  <Shift arrowLabels={arrowLabels} fastLinks={fastLinks} scrollable={false}>
+    <div>First page</div>
+    <div>Second page</div>
+    <div>Third page</div>
+  </Shift>
+  , document.getElementById("react-shift-anchor")
 );
 ```
 
