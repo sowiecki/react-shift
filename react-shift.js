@@ -1,8 +1,19 @@
 var React = require('react/addons')
-    , Arrow = require('./components/arrow.jsx')
     , ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
 React.initializeTouchEvents(true)
+
+var Arrow = React.createClass({displayName: "Arrow",
+    render: function() {
+      return (
+        React.createElement("div", {className: "react-shift-nav-arrow"}, 
+          React.createElement("a", {id: this.props.id, href: "#", onClick: this.props.on_click}, 
+            this.props.label
+          )
+        )
+      )
+    }
+  })
 
 var Shift = React.createClass({displayName: "Shift",
     propTypes: {

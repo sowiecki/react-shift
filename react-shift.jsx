@@ -1,8 +1,19 @@
 var React = require('react/addons')
-    , Arrow = require('./components/arrow.jsx')
     , ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
 React.initializeTouchEvents(true)
+
+var Arrow = React.createClass({
+    render: function() {
+      return (
+        <div className="react-shift-nav-arrow">
+          <a id={this.props.id} href="#" onClick={this.props.on_click}>
+            {this.props.label}
+          </a>
+        </div>
+      )
+    }
+  })
 
 var Shift = React.createClass({
     propTypes: {
@@ -82,13 +93,13 @@ var Shift = React.createClass({
           , leftArrow =
             this.state.page === 0 ? filler :
               <Arrow
-                id="react-shift-previous-page"
+                id={"react-shift-previous-page"}
                 label={this.props.arrowLabels.previous}
                 on_click={this.previous} />
           , rightArrow =
            this.state.page === this.state.pageCount ? filler :
             <Arrow
-              id="react-shift-next-page"
+              id={"react-shift-next-page"}
               label={this.props.arrowLabels.next}
               on_click={this.next} />
           , pagination =

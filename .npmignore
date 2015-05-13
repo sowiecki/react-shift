@@ -27,6 +27,7 @@ build/Release
 node_modules
 
 # Development
+components
 example*
 react-shift.jsx
 react-shift-bootstrap.css
