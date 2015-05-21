@@ -14,7 +14,8 @@ module.exports = function(grunt) {
           keepAlive: true
         },
         files: {
-          "example.js": "example.jsx"
+          "example.js": "example.jsx",
+          "react-shift.js": "react-shift.jsx"
         }
       },
       prod: {
