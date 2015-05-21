@@ -1,3 +1,7 @@
+html {
+	width: 100%;
+}
+
 .react-shift-page-enter {  
   position: absolute;
   right: 0; left: 0;
@@ -31,7 +35,7 @@ div#react-shift-page {
 	margin: 0 auto auto;
 	padding: 10px;
 	left: 0; right: 0;
-	width: 600px;
+	width: 100%;
 	/*border: 2px solid #3f3f3f;*/
 	border-radius: 10px;
 }

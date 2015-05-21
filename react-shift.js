@@ -1,5 +1,6 @@
 var React = require('react/addons')
     , ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
+    , handleSwipe = require('./handle-swipe')
 
 React.initializeTouchEvents(true)
 
@@ -77,7 +78,14 @@ var Shift = React.createClass({displayName: "Shift",
       }
     }
     , handleTouch: function(e) {
-      console.log(e.changedTouches[0].pageX)
+      switch (handleSwipe(e.changedTouches[0].pageX)) {
+        case 'left':
+          this.next()
+          break
+        case 'right':
+          this.previous()
+          break
+      }
     }
     , render: function() {
       var self = this
