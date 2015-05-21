@@ -1,41 +1,43 @@
 module.exports = function(grunt) {
-  require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks);
- 
+  var reactify = require('grunt-react').browserify;
+
   grunt.initConfig({
     browserify: {
-      options: {
-        transform: [ require("grunt-react").browserify ],
-        ignore: "react"
-      },
-      app: {
-        src: "example.jsx",
-        dest: "example_compiled.js"
-      }
-    },
-    react: {
-      combined_file_output: {
+      dev: {
+        options: {
+          transform: [ reactify ],
+          browserifyOptions: {
+              extensions: ['.jsx'],
+              debug: true
+          },
+          watch: true,
+          keepAlive: true
+        },
         files: {
-          "react-shift.js": [
-            "react-shift.jsx"
-          ]
+          "example.js": "example.jsx"
         }
       },
-    },
-    watch: {
-      files: ["./example.jsx"],
-      tasks: ["browserify"],
-    },
+      prod: {
+        files: {
+            "react-shift.js": "react-shift.jsx"
+        },
+        options: {
+          transform: [reactify],
+          browserifyOptions: {
+            extensions: ['.jsx']
+          }
+        }
+      }
+    }
   });
 
   grunt.loadNpmTasks("grunt-browserify");
-  grunt.loadNpmTasks("grunt-contrib-watch");
-  grunt.loadNpmTasks("grunt-react");
 
   grunt.event.on("watch", function(action, filepath, target) {
     grunt.log.writeln(target + ": " + filepath + " has " + action);
   });
 
-  grunt.registerTask("transform",[
-    "react"
-  ]);
+  grunt.registerTask('default', ['browserify:prod']);
+  grunt.registerTask('dev', ['browserify:dev']);
+  grunt.registerTask('prod', ['browserify:prod']);
 };
