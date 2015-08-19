@@ -17,7 +17,7 @@ gulp.task('dev', function() {
     })
     .transform(babelify)
     .bundle()
-    .pipe(source('react-shift.js'))
+    .pipe(source('react-shift.jsx'))
     .pipe(gulp.dest(dist));
 });
 

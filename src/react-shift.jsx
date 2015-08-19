@@ -102,7 +102,6 @@ export default React.createClass({
 				{String.fromCharCode('\u00a0')}
 			</div>
 		);
-		console.log(this.state.page === 0)
 		let leftArrow = this.state.page === 0 ? filler : (
 			<Arrow
 				id={'react-shift-previous-page'}
