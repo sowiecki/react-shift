@@ -29,7 +29,7 @@ The component can be passed objects to customize the navigation.
 
 * ```fastLinks``` creates a shortcut link to a page, where the key is the link name and the value is the page index.
 
-* ```scrollable``` specifies if mouse wheel scrolling triggers page change. The scroll event trigger is attached to ```#react-shift-wrapper```. Defaults to ```true```.
+* ```scrollable``` specifies if mouse wheel scrolling triggers page change. The scroll event trigger is attached to ```#react-shift-wrapper```. Defaults to ```true```. **Experimental**
 
 * ```transitions``` specifies if [ReactCSSTransitionGroup](https://facebook.github.io/react/docs/animation.html) is applied to page transitions. Defaults to ```false```.
 

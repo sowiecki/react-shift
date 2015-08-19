@@ -36,7 +36,8 @@ export default React.createClass({
 				previous: 'Previous page'
 			},
 			fastLinks: {},
-			scrollable: true
+			// TODO: Scrollable is broken, fix it
+			scrollable: false
 		};
 	},
 	getInitialState() {
