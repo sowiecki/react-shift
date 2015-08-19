@@ -8,17 +8,16 @@ npm install react-shift
 
 ## Getting started
 ```jsx
-var React = require('react/addons')
-	, Shift = require('react-shift')
-	, pageKey = 0;
+import React from 'react/addons';
+import Shift = require('react-shift';
 
 React.render(
   <Shift>
     <div>First page</div>
     <div>Second page</div>
     <div>Third page</div>
-  </Shift>
-  , document.getElementById("react-shift-anchor")
+  </Shift>,
+  document.getElementById("react-shift-anchor")
 );
 ```
 
@@ -35,22 +34,22 @@ The component can be passed objects to customize the navigation.
 
 Example:
 ```jsx
-var arrowLabels = {
-      next: ">>>"
-      , previous: "<<<"
-    }
-    , fastLinks = {
-      "Third page": 2
-      , "Fifth page": 4
-    }
+const arrowLabels = {
+  next: ">>>",
+  previous: "<<<"
+};
+const fastLinks = {
+  "Third page": 2,
+  "Fifth page": 4
+};
 
 React.render(
   <Shift arrowLabels={arrowLabels} fastLinks={fastLinks} scrollable={false}>
     <div>First page</div>
     <div>Second page</div>
     <div>Third page</div>
-  </Shift>
-  , document.getElementById("react-shift-anchor")
+  </Shift>,
+  document.getElementById("react-shift-anchor")
 );
 ```
 
