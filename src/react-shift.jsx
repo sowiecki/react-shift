@@ -122,7 +122,24 @@ export default React.createClass({
 				id='react-shift-pagination'
 				className='react-shift-pagination'>
 				{paginationArray.map(function(n) {
-					return n == self.state.page ? <a key={'currentPage-' + self.state.page} id={'page-' + n} className='react-shift-page-number react-shift-current-page' href='#'>{n + 1}</a> : <a key={'page' + n} id={'page-' + n} className='react-shift-page-number' href='#' onClick={self.setPage.bind(null, n)}>{n + 1}</a>;
+					return n == self.state.page ? (
+						<a
+							key={'currentPage-' + self.state.page}
+							id={'page-' + n}
+							className='react-shift-page-number react-shift-current-page'
+							href='#'>
+							{n + 1}
+						</a>
+					) : (
+						<a
+							key={'page' + n}
+							id={'page-' + n}
+							className='react-shift-page-number'
+							href='#'
+							onClick={self.setPage.bind(null, n)}>
+							{n + 1}
+						</a>
+					);
 				})}
 			</span>
 		);
@@ -141,7 +158,7 @@ export default React.createClass({
 						);
 					})}
 				</div>
-				);
+			);
 		} else {
 			let fastLinksList;
 		}
