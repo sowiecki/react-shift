@@ -1,0 +1,21 @@
+{
+  "parser": "babel-eslint",
+  "ecmaFeatures": {
+    "jsx": true,
+    "modules": true
+  },
+  "plugins": ["react"],
+  "env": {
+    "es6": true
+  },
+  "rules": {
+    "strict": 0,
+    "quotes": [
+      1,
+      "single"
+    ]
+  },
+  "globals": {
+  	"document": true
+  }
+}
