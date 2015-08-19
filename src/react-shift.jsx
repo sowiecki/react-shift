@@ -10,7 +10,7 @@ let Arrow = React.createClass({
 	render() {
 		return (
 			<div className='react-shift-nav-arrow'>
-				<a id={this.props.id} href='#' onClick={this.props.on_click}>
+				<a id={this.props.id} href='#' onClick={this.props.onClick}>
 					{this.props.label}
 				</a>
 			</div>
@@ -99,29 +99,28 @@ export default React.createClass({
 		let filler = (
 			<div
 				className='react-shift-nav-arrow'>
-				{'\u00a0'}
+				{String.fromCharCode('\u00a0')}
 			</div>
 		);
-		let leftArrow = (
-			this.state.page === 0 ? filler :
-				<Arrow
-					id={'react-shift-previous-page'}
-					label={this.props.arrowLabels.previous}
-					on_click={this.previous}/>
+		console.log(this.state.page === 0)
+		let leftArrow = this.state.page === 0 ? filler : (
+			<Arrow
+				id={'react-shift-previous-page'}
+				label={this.props.arrowLabels.previous}
+				onClick={this.previous}/>
 		);
-		let rightArrow = (
-		 this.state.page === this.state.pageCount ? filler :
+		let rightArrow = this.state.page === this.state.pageCount ? filler : (
 			<Arrow
 				id={'react-shift-next-page'}
 				label={this.props.arrowLabels.next}
-				on_click={this.next}/>
+				onClick={this.next}/>
 		);
 		let pagination = (
 			<span
 				key='react-shift-page-numbers'
 				id='react-shift-pagination'
 				className='react-shift-pagination'>
-				{paginationArray.map(function(n) {
+				{paginationArray.map((n) => {
 					return n == self.state.page ? (
 						<a
 							key={'currentPage-' + self.state.page}
@@ -173,7 +172,7 @@ export default React.createClass({
 				</div>
 				<nav id='react-shift-navigation'>
 					{fastLinksList}
-					{leftArrow, pagination, rightArrow}
+					{leftArrow} {pagination} {rightArrow}
 				</nav>
 			</div>
 		);
