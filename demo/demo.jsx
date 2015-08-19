@@ -1,15 +1,16 @@
 // Example usage of package
 
-var React = require('react/addons'),
-		Shift = require('../src/react-shift.jsx'),
-		arrowLabels = {
-		  next: ">>>",
-		  previous: "<<<"
-		},
-	  fastLinks = {
-	    "Third page": 2,
-	    "Fifth page": 4
-	  };
+import React from 'react/addons';
+import Shift from '../src/react-shift.jsx';
+
+const arrowLabels = {
+  next: ">>>",
+  previous: "<<<"
+};
+const fastLinks = {
+  "Third page": 2,
+  "Fifth page": 4
+};
 
 React.render(
   <Shift arrowLabels={arrowLabels} fastLinks={fastLinks} transitions={true}>

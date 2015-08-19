@@ -21,6 +21,12 @@ React.render(
 );
 ```
 
+## Demo
+
+`gulp demo`
+
+Open `demo.html` in a browser.
+
 ## Customization
 The component can be passed objects to customize the navigation.
 
