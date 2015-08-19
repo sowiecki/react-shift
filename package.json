@@ -1,6 +1,6 @@
 {
   "name": "react-shift",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "description": "React carousel/slider with pagination.",
   "main": "react-shift.js",
   "scripts": {
@@ -25,11 +25,14 @@
     "react": "^0.13.3"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-browserify": "^3.6.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-react": "^0.12.1",
-    "jest": "^0.1.39",
-    "matchdep": "^0.3.0"
+    "babel-eslint": "^4.0.10",
+    "babelify": "^6.1.3",
+    "browserify": "^11.0.1",
+    "eslint-plugin-react": "^3.2.3",
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^1.0.0",
+    "matchdep": "^0.3.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
   }
 }
