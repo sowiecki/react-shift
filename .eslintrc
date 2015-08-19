@@ -13,9 +13,16 @@
     "quotes": [
       1,
       "single"
-    ]
+    ],
+    "indent": [
+      2,
+      "tab"
+    ],
+    "no-var": 1,
+    "no-irregular-whitespace": 1,
+    "no-underscore-dangle": 0
   },
   "globals": {
-  	"document": true
+    "document": true
   }
 }
