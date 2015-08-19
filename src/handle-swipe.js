@@ -8,7 +8,7 @@ const position = {
 	}
 };
 
-export default handleSwipe = (e) => {
+export default (e) => {
 	e = Math.round(e);
 	position.direction = null;
 	if (e < 450) {

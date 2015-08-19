@@ -1,7 +1,7 @@
 // Example usage of package
 
 var React = require('react/addons'),
-		Shift = require('./react-shift.jsx'),
+		Shift = require('../src/react-shift.jsx'),
 		arrowLabels = {
 		  next: ">>>",
 		  previous: "<<<"

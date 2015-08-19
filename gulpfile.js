@@ -9,17 +9,7 @@ var path = 'src/**/*';
 var src = './src/react-shift.jsx';
 var dist = './dist';
 
-gulp.task('prod', ['lint'], function () {
-  browserify({
-      entries: src,
-    })
-    .transform(babelify)
-    .bundle()
-    .pipe(source('react-shift.js'))
-    .pipe(buffer())
-    .pipe(gulp.dest(dist));
-});
-
+// Development
 gulp.task('dev', function() {
   browserify({
       entries: src,
@@ -31,6 +21,10 @@ gulp.task('dev', function() {
     .pipe(gulp.dest(dist));
 });
 
+gulp.task('watch', ['dev'], function(){
+	gulp.watch(path, ['dev']);
+});
+
 gulp.task('lint', function () {
   return gulp.src(['src/**/*'])
     .pipe(eslint())
@@ -38,6 +32,30 @@ gulp.task('lint', function () {
     .pipe(eslint.failOnError());
 });
 
-gulp.task('watch', ['dev'], function(){
-	gulp.watch('src/**/*', ['dev', 'lint'])
+// Production
+gulp.task('prod', ['lint'], function () {
+  browserify({
+      entries: src,
+    })
+    .transform(babelify)
+    .bundle()
+    .pipe(source('react-shift.js'))
+    .pipe(buffer())
+    .pipe(gulp.dest(dist));
 });
+
+// Demo
+gulp.task('compileDemo', function() {
+  browserify({
+      entries: './demo/demo.jsx',
+      debug: true
+    })
+    .transform(babelify)
+    .bundle()
+    .pipe(source('demo.js'))
+    .pipe(gulp.dest('./demo'));
+});
+
+gulp.task('demo', ['compileDemo'], function() {
+  gulp.watch(['demo/demo.jsx', path], ['compileDemo']);
+})

@@ -107,14 +107,14 @@ export default React.createClass({
 				<Arrow
 					id={'react-shift-previous-page'}
 					label={this.props.arrowLabels.previous}
-					on_click={this.previous} />
+					on_click={this.previous}/>
 		);
 		let rightArrow = (
 		 this.state.page === this.state.pageCount ? filler :
 			<Arrow
 				id={'react-shift-next-page'}
 				label={this.props.arrowLabels.next}
-				on_click={this.next} />
+				on_click={this.next}/>
 		);
 		let pagination = (
 			<span
@@ -143,25 +143,21 @@ export default React.createClass({
 				})}
 			</span>
 		);
-		if (this.props.fastLinks) {
-			let fastLinksList = (
-				<div id='react-shift-fast-links'>
-					{Object.keys(fastLinks).map(function(i, v) {
-						return (
-							<a
-								key={'fastLink' + i}
-								className='react-shift-fast-link'
-								href='#'
-								onClick={self.setPage.bind(null, fastLinks[i])}>
-									{Object.keys(fastLinks)[v]}
-							</a>
-						);
-					})}
-				</div>
-			);
-		} else {
-			let fastLinksList;
-		}
+		let fastLinksList = this.props.fastLinks ? (
+			<div id='react-shift-fast-links'>
+				{Object.keys(fastLinks).map(function(i, v) {
+					return (
+						<a
+							key={'fastLink' + i}
+							className='react-shift-fast-link'
+							href='#'
+							onClick={self.setPage.bind(null, fastLinks[i])}>
+								{Object.keys(fastLinks)[v]}
+						</a>
+					);
+				})}
+			</div>
+		) : null;
 		return (
 			<div
 				key='react-shift'
