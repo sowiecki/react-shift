@@ -18,6 +18,7 @@
       2,
       "tab"
     ],
+    "semi": 1,
     "no-var": 1,
     "no-irregular-whitespace": 1,
     "no-underscore-dangle": 0
