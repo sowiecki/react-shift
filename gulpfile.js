@@ -10,15 +10,10 @@ var src = './src/react-shift.jsx';
 var dist = './dist';
 
 // Development
-gulp.task('dev', function() {
-  browserify({
-      entries: src,
-      debug: true
-    })
-    .transform(babelify)
-    .bundle()
-    .pipe(source('react-shift.jsx'))
-    .pipe(gulp.dest(dist));
+gulp.task("dev", function () {
+  return gulp.src("src/**/*")
+    .pipe(babel())
+    .pipe(gulp.dest("dist"));
 });
 
 gulp.task('watch', ['dev'], function(){
@@ -33,16 +28,7 @@ gulp.task('lint', function () {
 });
 
 // Production
-gulp.task('prod', ['lint'], function () {
-  browserify({
-      entries: src,
-    })
-    .transform(babelify)
-    .bundle()
-    .pipe(source('react-shift.js'))
-    .pipe(buffer())
-    .pipe(gulp.dest(dist));
-});
+gulp.task('prod', ['lint', 'dev']);
 
 // Demo
 gulp.task('compileDemo', function() {

@@ -4,7 +4,7 @@
   "description": "React carousel/slider with pagination.",
   "main": "index.jsx",
   "scripts": {
-    "dist": "rimraf dist && babel --stage 0 src/ -d dist/"
+    "dist": "rm -rf dist && babel src/ -d dist/"
   },
   "repository": {
     "type": "git",
@@ -26,10 +26,11 @@
   },
   "devDependencies": {
     "babel-eslint": "^4.0.10",
-    "babelify": "^6.1.3",
+    "babelify": "^6.2.0",
     "browserify": "^11.0.1",
     "eslint-plugin-react": "^3.2.3",
     "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.1",
     "gulp-eslint": "^1.0.0",
     "matchdep": "^0.3.0",
     "vinyl-buffer": "^1.0.0",
