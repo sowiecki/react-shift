@@ -9,7 +9,7 @@ npm install react-shift
 ## Getting started
 ```jsx
 import React from 'react/addons';
-import Shift = require('react-shift';
+import Shift from 'react-shift';
 
 React.render(
   <Shift>
@@ -28,7 +28,7 @@ React.render(
 Open `demo.html` in a browser.
 
 ## Customization
-The component can be passed objects to customize the navigation.
+The component can be passed objects as props to customize the navigation.
 
 * ```arrowLabels``` specifies custom next and previous page link labels.
 
@@ -50,7 +50,10 @@ const fastLinks = {
 };
 
 React.render(
-  <Shift arrowLabels={arrowLabels} fastLinks={fastLinks} scrollable={false}>
+  <Shift
+    arrowLabels={arrowLabels}
+    fastLinks={fastLinks}
+    scrollable={false}>
     <div>First page</div>
     <div>Second page</div>
     <div>Third page</div>
