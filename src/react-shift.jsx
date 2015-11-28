@@ -1,23 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+import Arrow from './arrow.jsx';
 import handleSwipe from './handle-swipe';
 
-const Arrow = ({ id, onClick, label }) => {
-  return (
-    <div className='react-shift-nav-arrow'>
-      <a id={id} href='#' onClick={onClick}>
-        {label}
-      </a>
-    </div>
-  );
-};
-
-Arrow.propTypes = {
-  id: PropTypes.string,
-  onClick: PropTypes.func,
-  label: PropTypes.string
-};
 
 export default class ReactShift extends Component {
   constructor(props) {
