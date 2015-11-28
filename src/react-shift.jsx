@@ -24,23 +24,21 @@ export default class ReactShift extends Component {
     super(props);
 
     this.state = {
-      mounted: false,
       page: 0,
       pageCount: 0
     };
 
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
-    this.setPage = this.setPage(this);
+    this.setPage = this.setPage.bind(this);
     this.handleWheel = this.handleWheel.bind(this);
     this.handleTouch = this.handleTouch.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { children, scrollable } = nextProps;
+  componentDidMount() {
+    const { children, scrollable } = this.props;
 
     this.setState({
-      mounted: true,
       pageCount: children.length - 1,
       scrollable
     });
@@ -96,7 +94,6 @@ export default class ReactShift extends Component {
             children } = this.props;
     const { page, pageCount } = this.state;
 
-    const self = this;
     const paginationArray = Array
       .apply(null, {length: pageCount + 1})
       .map(Number.call, Number);
@@ -158,7 +155,7 @@ export default class ReactShift extends Component {
               key={`fastLink${i}`}
               className='react-shift-fast-link'
               href='#'
-              onClick={self.setPage.bind(null, fastLinks[i])}>
+              onClick={this.setPage.bind(null, fastLinks[i])}>
                 {Object.keys(fastLinks)[v]}
             </a>
           );
@@ -174,8 +171,11 @@ export default class ReactShift extends Component {
         onTouchMove={this.handconstouch}>
         <div id='react-shift-page'>
           {transitions ?
-            <ReactCSSTransitionGroup transitionName='react-shift-page'>
-              {children[page]}
+            <ReactCSSTransitionGroup
+              transitionEnterTimeout={300}
+              transitionLeaveTimeout={300}
+              transitionName='react-shift-page'>
+                {children[page]}
             </ReactCSSTransitionGroup>
           : children[page]}
         </div>

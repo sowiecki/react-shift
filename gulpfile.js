@@ -48,7 +48,7 @@ gulp.task('compileDemo', function () {
     })
     .transform(babelify, babelPresets)
     .bundle()
-    .pipe(source('app.js'))
+    .pipe(source('demo.js'))
     .pipe(buffer())
     .pipe(gulp.dest('./demo'));
 });
