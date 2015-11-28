@@ -1,152 +1,161 @@
-import React from 'react/addons';
+import React, { Component, PropTypes } from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import handleSwipe from './handle-swipe';
 
-let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+const Arrow = ({ id, onClick, label }) => {
+  return (
+    <div className='react-shift-nav-arrow'>
+      <a id={id} href='#' onClick={onClick}>
+        {label}
+      </a>
+    </div>
+  );
+};
 
-React.initializeTouchEvents(true);
+Arrow.propTypes = {
+  id: PropTypes.string,
+  onClick: PropTypes.func,
+  label: PropTypes.string
+};
 
-let Arrow = React.createClass({
-  render() {
-    return (
-      <div className='react-shift-nav-arrow'>
-        <a id={this.props.id} href='#' onClick={this.props.onClick}>
-          {this.props.label}
-        </a>
-      </div>
-    );
-  }
-});
+export default class ReactShift extends Component {
+  constructor(props) {
+    super(props);
 
-export default React.createClass({
-  propTypes: {
-    arrowLabels: React.PropTypes.object,
-    arrowLabels: React.PropTypes.shape({
-      next: React.PropTypes.string,
-      previous: React.PropTypes.string
-    }),
-    fastLinks: React.PropTypes.object,
-    transitions: React.PropTypes.bool,
-    scrollable: React.PropTypes.bool
-  },
-  getDefaultProps() {
-    return {
-      arrowLabels: {
-        next: 'Next page',
-        previous: 'Previous page'
-      },
-      fastLinks: {},
-      // TODO: Scrollable is broken, fix it
-      scrollable: false
-    };
-  },
-  getInitialState() {
-    return {
+    this.state = {
       mounted: false,
       page: 0,
       pageCount: 0
     };
-  },
-  componentDidMount() {
+
+    this.next = this.next.bind(this);
+    this.previous = this.previous.bind(this);
+    this.setPage = this.setPage(this);
+    this.handleWheel = this.handleWheel.bind(this);
+    this.handleTouch = this.handleTouch.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { children, scrollable } = nextProps;
+
     this.setState({
       mounted: true,
-      pageCount: this.props.children.length - 1,
-      scrollable: this.props.scrollable
+      pageCount: children.length - 1,
+      scrollable
     });
-  },
+  }
+
   next() {
-    if (this.state.page === this.state.pageCount) {
-      null;
-    } else {
-      this.setState({page: this.state.page + 1});
+    const { page, pageCount } = this.state;
+
+    if (page !== pageCount) {
+      this.setState({page: page + 1});
     }
-  },
+  }
+
   previous() {
-    if (this.state.page === 0) {
-      null;
-    } else {
-      this.setState({page: this.state.page - 1});
+    const { page } = this.state;
+
+    if (page !== 0) {
+      this.setState({page: page - 1});
     }
-  },
+  }
+
   setPage(n) {
     this.setState({page: n});
-  },
+  }
+
   handleWheel(e) {
-    if (this.props.scrollable) {
+    const { scrollable } = this.props;
+
+    if (scrollable) {
       if (e.deltaY > 0) {
         this.next();
       } else {
         this.previous();
       }
     }
-  },
+  }
+
   handleTouch(e) {
     switch (handleSwipe(e.changedTouches[0].pageX)) {
-    case 'left':
-      this.next();
-      break;
-    case 'right':
-      this.previous();
-      break;
+      case 'left':
+        this.next();
+        break;
+      case 'right':
+        this.previous();
+        break;
     }
-  },
+  }
+
   render() {
-    let self = this;
-    let fastLinks = this.props.fastLinks;
-    let paginationArray = Array
-      .apply(null, {length: this.state.pageCount + 1})
+    const { fastLinks,
+            arrowLabels,
+            transitions,
+            children } = this.props;
+    const { page, pageCount } = this.state;
+
+    const self = this;
+    const paginationArray = Array
+      .apply(null, {length: pageCount + 1})
       .map(Number.call, Number);
-    let filler = (
+
+    const filler = (
       <div
         className='react-shift-nav-arrow'>
         {String.fromCharCode('\u00a0')}
       </div>
     );
-    let leftArrow = this.state.page === 0 ? filler : (
+
+    const leftArrow = page === 0 ? filler : (
       <Arrow
         id={'react-shift-previous-page'}
-        label={this.props.arrowLabels.previous}
+        label={arrowLabels.previous}
         onClick={this.previous}/>
     );
-    let rightArrow = this.state.page === this.state.pageCount ? filler : (
+
+    const rightArrow = page === pageCount ? filler : (
       <Arrow
         id={'react-shift-next-page'}
-        label={this.props.arrowLabels.next}
+        label={arrowLabels.next}
         onClick={this.next}/>
     );
-    let pagination = (
+
+    const pagination = (
       <span
         key='react-shift-page-numbers'
         id='react-shift-pagination'
         className='react-shift-pagination'>
         {paginationArray.map((n) => {
-          return n == self.state.page ? (
+          return n === page ? (
             <a
-              key={'currentPage-' + self.state.page}
-              id={'page-' + n}
+              key={`currentPage-${page}`}
+              id={`page-${n}`}
               className='react-shift-page-number react-shift-current-page'
               href='#'>
               {n + 1}
             </a>
           ) : (
             <a
-              key={'page' + n}
-              id={'page-' + n}
+              key={`page-${n}`}
+              id={`page-${n}`}
               className='react-shift-page-number'
               href='#'
-              onClick={self.setPage.bind(null, n)}>
+              onClick={this.setPage.bind(null, n)}>
               {n + 1}
             </a>
           );
         })}
       </span>
     );
-    let fastLinksList = this.props.fastLinks ? (
+
+    const fastLinksList = fastLinks ? (
       <div id='react-shift-fast-links'>
-        {Object.keys(fastLinks).map(function(i, v) {
+        {Object.keys(fastLinks).map((i, v) => {
           return (
             <a
-              key={'fastLink' + i}
+              key={`fastLink${i}`}
               className='react-shift-fast-link'
               href='#'
               onClick={self.setPage.bind(null, fastLinks[i])}>
@@ -156,18 +165,19 @@ export default React.createClass({
         })}
       </div>
     ) : null;
+
     return (
       <div
         key='react-shift'
         id='react-shift-wrapper'
         onWheelCapture={this.handleWheel}
-        onTouchMove={this.handleTouch}>
+        onTouchMove={this.handconstouch}>
         <div id='react-shift-page'>
-          {this.props.transitions ?
+          {transitions ?
             <ReactCSSTransitionGroup transitionName='react-shift-page'>
-              {this.props.children[this.state.page]}
+              {children[page]}
             </ReactCSSTransitionGroup>
-          : this.props.children[this.state.page]}
+          : children[page]}
         </div>
         <nav id='react-shift-navigation'>
           {fastLinksList}
@@ -176,4 +186,25 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+ReactShift.propTypes = {
+  children: PropTypes.node,
+  arrowLabels: PropTypes.shape({
+    next: PropTypes.string,
+    previous: PropTypes.string
+  }),
+  fastLinks: PropTypes.object,
+  transitions: PropTypes.bool,
+  scrollable: PropTypes.bool
+};
+
+ReactShift.defaultProps = {
+  arrowLabels: {
+    next: 'Next page',
+    previous: 'Previous page'
+  },
+  fastLinks: {},
+  // TODO: Scrollable is broken, fix it
+  scrollable: false
+};
