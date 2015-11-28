@@ -1,29 +1,28 @@
+![](./example.gif)
+
 # react-shift
-Creates a carousel component out of [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) trees. Intended to be light-weight and easy to get started with. React-Shift can be used to serve a simple static webpage or dropped as a small component into a larger stack.
+A simple, paginated carousel component for [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) elements. `react-shift` can be used to serve pages of content or dropped as a small component into a larger stack.
 
 ## Installation
 ```
-npm install react-shift
+npm install react-shift --save
 ```
 
 ## Getting started
 ```jsx
-import React from 'react/addons';
-import Shift from 'react-shift';
-
-React.render(
+render(
   <Shift>
     <div>First page</div>
     <div>Second page</div>
     <div>Third page</div>
   </Shift>,
-  document.getElementById("react-shift-anchor")
+  node
 );
 ```
 
 ## Demo
 
-`gulp demo`
+`npm run demo`
 
 Open `demo.html` in a browser.
 
@@ -44,6 +43,7 @@ const arrowLabels = {
   next: ">>>",
   previous: "<<<"
 };
+
 const fastLinks = {
   "Third page": 2,
   "Fifth page": 4
@@ -65,53 +65,53 @@ React.render(
 ## Styling
 ```css
 /* component wrapper */
-div#react-shift-wrapper {	
+#react-shift-wrapper {
 }
 
 /* page division */
-div#react-shift-page {
+#react-shift-page {
 }
 
 /* navigation */
-nav#react-shift-navigation {
+#react-shift-navigation {
 }
 
 /* navigation arrows */
-div.react-shift-nav-arrow {
+.react-shift-nav-arrow {
   display: inline-block; /* Recommended */
   width: 80px; /* Set to maintain spacing on arrow exit */
 }
-a#react-shift-next-page {
+#react-shift-next-page {
 }
-a#react-shift-previous-page {
+#react-shift-previous-page {
 }
 
 /* pagination */
-span#react-shift-pagination {
+#react-shift-pagination {
 }
-a.react-shift-current-page {
+.react-shift-current-page {
 }
 
 /* fast links */
-div#react-shift-fast-links {
+#react-shift-fast-links {
 }
-a.react-shift-fast-link {
+.react-shift-fast-link {
 }
 ```
 
 ## Transition animations example
 ```css
 /* minimum required for clean page transition */
-.react-shift-page-enter {  
+.react-shift-page-enter {
   position: absolute;
   right: 0; left: 0;
   opacity: 0.01;
   transition: opacity .25s ease-in;
 }
-.react-shift-page-enter.react-shift-page-enter-active {  
+.react-shift-page-enter.react-shift-page-enter-active {
   opacity: 1;
 }
-.react-shift-page-leave {  
+.react-shift-page-leave {
   position: absolute;
   right: 0; left: 0;
   opacity: 1;

@@ -4,6 +4,10 @@
   "description": "React carousel/slider with pagination.",
   "main": "index.jsx",
   "scripts": {
+    "dev": "gulp watch",
+    "prod": "gulp prod",
+    "lint": "gulp lint",
+    "demo": "gulp demo",
     "dist": "rm -rf dist && babel src/ -d dist/"
   },
   "repository": {
@@ -22,17 +26,24 @@
   },
   "homepage": "https://github.com/Nase00/react-shift",
   "dependencies": {
-    "react": "^0.13.3"
+    "react": "^0.14.3"
   },
   "devDependencies": {
     "babel-eslint": "^4.0.10",
-    "babelify": "^6.2.0",
-    "browserify": "^11.0.1",
+    "babel-plugin-syntax-jsx": "^6.1.18",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.1.18",
+    "babel-runtime": "^6.2.0",
+    "babelify": "^7.2.0",
+    "browserify": "^12.0.1",
     "eslint-plugin-react": "^3.2.3",
     "gulp": "^3.9.0",
-    "gulp-babel": "^5.2.1",
+    "gulp-babel": "^6.1.1",
+    "gulp-concat": "^2.6.0",
     "gulp-eslint": "^1.0.0",
+    "gulp-sourcemaps": "^1.6.0",
     "matchdep": "^0.3.0",
+    "react-dom": "^0.14.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   }
