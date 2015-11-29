@@ -37,40 +37,6 @@ Arrow.propTypes = {
 exports.default = Arrow;
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var position = {
-  right: 0,
-  left: 0,
-  direction: null,
-  clear: function clear() {
-    undefined.right = 0;
-    undefined.left = 0;
-  }
-};
-
-exports.default = function (e) {
-  e = Math.round(e);
-  position.direction = null;
-  if (e < 450) {
-    position.left += 1;
-    position.right = 0;
-  } else if (e > 550) {
-    position.right += 1;
-    position.left = 0;
-  }
-  if (position.left > 4) {
-    position.clear();
-    return 'left';
-  }
-  if (position.right > 4) {
-    position.clear();
-    return 'right';
-  }
-};
-'use strict';
-
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 Object.defineProperty(exports, "__esModule", {
@@ -89,9 +55,9 @@ var _arrow = require('./arrow.jsx');
 
 var _arrow2 = _interopRequireDefault(_arrow);
 
-var _handleSwipe = require('./handle-swipe');
+var _touchHandler = require('./touch-handler');
 
-var _handleSwipe2 = _interopRequireDefault(_handleSwipe);
+var _touchHandler2 = _interopRequireDefault(_touchHandler);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -176,14 +142,10 @@ var ReactShift = (function (_Component) {
   }, {
     key: 'handleTouch',
     value: function handleTouch(e) {
-      switch ((0, _handleSwipe2.default)(e.changedTouches[0].pageX)) {
-        case 'left':
-          this.next();
-          break;
-        case 'right':
-          this.previous();
-          break;
-      }
+      var next = this.next;
+      var previous = this.previous;
+
+      (0, _touchHandler2.default)(e.changedTouches[0].pageX, next, previous);
     }
   }, {
     key: 'render',
@@ -246,7 +208,6 @@ var ReactShift = (function (_Component) {
             'a',
             {
               key: 'page-' + n,
-              id: 'page-' + n,
               className: classes.pageNumber,
               style: styles.pageNumber,
               href: fakeLinks ? '#' : null,
@@ -364,5 +325,45 @@ ReactShift.defaultProps = {
   fakeLinks: true,
   // TODO: Fix scrolling problems on mobile devices
   scrollable: false
+};
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var position = {
+  right: 0,
+  left: 0,
+  direction: null,
+  clear: function clear() {
+    this.right = 0;
+    this.left = 0;
+  }
+};
+
+exports.default = function (e, left, right) {
+  e = Math.round(e);
+
+  position.direction = null;
+
+  if (e < 450) {
+    position.left += 1;
+    position.right = 0;
+  } else if (e > 550) {
+    position.right += 1;
+    position.left = 0;
+  }
+
+  if (position.left > 4) {
+    position.clear();
+    left();
+    return;
+  }
+
+  if (position.right > 4) {
+    position.clear();
+    right();
+    return;
+  }
 };
 //# sourceMappingURL=react-shift.js.map
