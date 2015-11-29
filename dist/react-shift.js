@@ -157,8 +157,8 @@ var ReactShift = (function (_Component) {
   }
 
   _createClass(ReactShift, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
       // TODO move this out of componentDidMount
       var _props = this.props;
       var children = _props.children;
