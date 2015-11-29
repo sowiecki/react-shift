@@ -77,8 +77,10 @@ export default class ReactShift extends Component {
     const { fastLinks,
             arrowLabels,
             transitions,
-            children } = this.props;
+            children,
+            classes } = this.props;
     const { page, pageCount } = this.state;
+
 
     const paginationArray = Array
       .apply(null, {length: pageCount + 1})
@@ -86,21 +88,21 @@ export default class ReactShift extends Component {
 
     const filler = (
       <div
-        className='react-shift-nav-arrow'>
+        className={classes.navArrow}>
         {String.fromCharCode('\u00a0')}
       </div>
     );
 
     const leftArrow = page === 0 ? filler : (
       <Arrow
-        id={'react-shift-previous-page'}
+        className={classes.previousPage}
         label={arrowLabels.previous}
         onClick={this.previous}/>
     );
 
     const rightArrow = page === pageCount ? filler : (
       <Arrow
-        id={'react-shift-next-page'}
+        className={classes.nextPage}
         label={arrowLabels.next}
         onClick={this.next}/>
     );
@@ -108,14 +110,12 @@ export default class ReactShift extends Component {
     const pagination = (
       <span
         key='react-shift-page-numbers'
-        id='react-shift-pagination'
-        className='react-shift-pagination'>
+        className={classes.pagination}>
         {paginationArray.map((n) => {
           return n === page ? (
             <a
               key={`currentPage-${page}`}
-              id={`page-${n}`}
-              className='react-shift-page-number react-shift-current-page'
+              className={`${classes.pageNumber}-${n} ${classes.currentPage}`}
               href='#'>
               {n + 1}
             </a>
@@ -123,7 +123,7 @@ export default class ReactShift extends Component {
             <a
               key={`page-${n}`}
               id={`page-${n}`}
-              className='react-shift-page-number'
+              className={classes.pageNumber}
               href='#'
               onClick={this.setPage.bind(null, n)}>
               {n + 1}
@@ -134,12 +134,12 @@ export default class ReactShift extends Component {
     );
 
     const fastLinksList = fastLinks ? (
-      <div id='react-shift-fast-links'>
+      <div>
         {Object.keys(fastLinks).map((i, v) => {
           return (
             <a
               key={`fastLink${i}`}
-              className='react-shift-fast-link'
+              className={classes.fastLinks}
               href='#'
               onClick={this.setPage.bind(null, fastLinks[i])}>
                 {Object.keys(fastLinks)[v]}
@@ -152,20 +152,19 @@ export default class ReactShift extends Component {
     return (
       <div
         key='react-shift'
-        id='react-shift-wrapper'
         onWheelCapture={this.handleWheel}
         onTouchMove={this.handconstouch}>
-        <div id='react-shift-page'>
+        <div className={classes.page}>
           {transitions ?
             <ReactCSSTransitionGroup
               transitionEnterTimeout={300}
               transitionLeaveTimeout={300}
-              transitionName='react-shift-page'>
+              transitionName={transitions.name}>
                 {children[page]}
             </ReactCSSTransitionGroup>
           : children[page]}
         </div>
-        <nav id='react-shift-navigation'>
+        <nav className={classes.navigation}>
           {fastLinksList}
           {leftArrow} {pagination} {rightArrow}
         </nav>
@@ -175,13 +174,18 @@ export default class ReactShift extends Component {
 }
 
 ReactShift.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
+  classes: PropTypes.object,
   arrowLabels: PropTypes.shape({
+    className: PropTypes.string,
     next: PropTypes.string,
     previous: PropTypes.string
   }),
   fastLinks: PropTypes.object,
-  transitions: PropTypes.bool,
+  transitions: PropTypes.shape({
+    active: PropTypes.bool,
+    name: PropTypes.string
+  }),
   scrollable: PropTypes.bool
 };
 
@@ -190,7 +194,6 @@ ReactShift.defaultProps = {
     next: 'Next page',
     previous: 'Previous page'
   },
-  fastLinks: {},
   // TODO: Scrollable is broken, fix it
   scrollable: false
 };

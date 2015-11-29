@@ -1,0 +1,82 @@
+html {
+  width: 100%;
+}
+
+.react-shift-page-enter {
+  position: absolute;
+  right: 0; left: 0;
+  opacity: 0.01;
+  transition: opacity .25s ease-in;
+}
+.react-shift-page-enter.react-shift-page-enter-active {
+  opacity: 1;
+}
+.react-shift-page-leave {
+  position: absolute;
+  right: 0; left: 0;
+  opacity: 1;
+  transition: opacity .25s ease-in;
+}
+.react-shift-page-leave.react-shift-page-leave-active {
+  position: absolute;
+  opacity: 0.01;
+  transition: opacity .25s ease-in;
+}
+
+.react-shift-wrapper {
+  height: 100%;
+  width: 100%;
+  font-family: Helvetica;
+}
+
+.react-shift-page {
+  box-sizing: border-box;
+  position: absolute;
+  margin: 0 auto auto;
+  padding: 10px;
+  left: 0; right: 0;
+  width: 100%;
+  /*border: 2px solid #3f3f3f;*/
+  border-radius: 10px;
+}
+
+.react-shift-navigation {
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 100px; left: 0; right: 0;
+  margin: 10px auto auto;
+  padding: 2px;
+  width: 600px;
+  height: 60px;
+  text-align: center;
+  /*border: 2px solid #3f3f3f;*/
+  border-radius: 10px;
+}
+
+
+.react-shift-nav-arrow {
+  display: inline-block;
+  width: 60px;
+}
+
+.react-shift-next-page {
+
+}
+
+.react-shift-previous-page {
+
+}
+
+a {
+  font-size: 12px;
+  transition: all .25s;
+
+}
+a.react-shift-current-page {
+  font-size: 26px;
+
+}
+
+a.react-shift-fast-link {
+  margin: 0 4px 0 4px;
+}
