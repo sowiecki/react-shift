@@ -24,7 +24,7 @@ export default class ReactShift extends Component {
     this.handleTouch = this.handleTouch.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     // TODO move this out of componentDidMount
     const { children, scrollable } = this.props;
 
