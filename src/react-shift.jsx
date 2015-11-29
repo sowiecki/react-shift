@@ -134,7 +134,6 @@ export default class ReactShift extends Component {
           ) : (
             <a
               key={`page-${n}`}
-              id={`page-${n}`}
               className={classes.pageNumber}
               style={styles.pageNumber}
               href={fakeLinks ? '#' : null}
