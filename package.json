@@ -9,8 +9,9 @@
     "lint": "gulp lint",
     "demo": "gulp demo",
     "dist": "rm -rf dist && babel src/ -d dist/",
-    "test": "npm run lint && ./node_modules/.bin/karma start karma.conf.js",
-    "prepublish": "gulp dev && npm run test"
+    "karma": "./node_modules/.bin/karma start karma.conf.js",
+    "test": "npm run lint && npm run karma",
+    "build": "gulp dev && npm run test"
   },
   "repository": {
     "type": "git",
@@ -51,15 +52,20 @@
     "gulp-concat": "^2.6.0",
     "gulp-eslint": "^1.0.0",
     "gulp-sourcemaps": "^1.6.0",
+    "karma-babel-preprocessor": "^6.0.1",
+    "karma-browserify": "^4.4.1",
     "karma-chai": "^0.1.0",
     "karma-chai-plugins": "^0.6.1",
     "karma-mocha": "^0.2.1",
+    "karma-phantomjs-launcher": "^0.2.1",
     "karma-phantomjs-shim": "^1.1.2",
     "karma-spec-reporter": "0.0.23",
-    "matchdep": "^0.3.0",
     "mocha": "^2.3.4",
+    "phantomjs": "^1.9.19",
+    "react-addons-test-utils": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-shallow-render": "^1.0.1",
+    "react-shallow-renderer-helpers": "^2.0.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   }
