@@ -37,7 +37,6 @@ const classes = {
 const styles = {
   wrapper: {
     borderRadius: '10px',
-    padding: '20px',
     backgroundColor: '#D3D3D3'
   }
 };
@@ -48,7 +47,8 @@ render(
     styles={styles}
     arrowLabels={arrowLabels}
     fastLinks={fastLinks}
-    transitions={transitions}>
+    transitions={transitions}
+    scrollable={true}>
     <div>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       Proin lectus justo, varius eget tellus at, auctor suscipit tellus.

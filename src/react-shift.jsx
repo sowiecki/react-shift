@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import Arrow from './arrow.jsx';
-import handleSwipe from './handle-swipe';
+import touchHandler from './touch-handler';
 
 
 export default class ReactShift extends Component {
@@ -65,14 +65,13 @@ export default class ReactShift extends Component {
   }
 
   handleTouch(e) {
-    switch (handleSwipe(e.changedTouches[0].pageX)) {
-      case 'left':
-        this.next();
-        break;
-      case 'right':
-        this.previous();
-        break;
-    }
+    const { next, previous } = this;
+
+    touchHandler(
+      e.changedTouches[0].pageX,
+      next,
+      previous
+    );
   }
 
   render() {

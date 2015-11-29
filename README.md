@@ -35,7 +35,7 @@ Name | Type | Properties | Description | Default
 `styles` | *object* | `wrapper`, `navigation`, `page`, `pagination`, `pageNumber`<sup>3</sup>, `currentPage`, `fastLinks`, `navArrow`, `nextPage`, `previousPage`, `arrowFiller`<sup>2</sup> | Passes styles to subcomponent `style` properties. | `null`
 `scrollable` | *boolean* | *N/A* | **Experimental**, has problems on mobile devices. Specifies if mouse wheel scrolling events on the page subcomponent triggers page changes. | `false`
 
-<sup>1</sup> `pageNumber` (className) applies that generic className *every* page number element, but also creates a unique class name on each page number using `${yourDefinedClass}-${pageIndex}`.
+<sup>1</sup> `pageNumber` applies that generic className *every* page number element, but also creates a unique class name on each page number using `${yourDefinedClass}-${pageIndex}`.
 
 <sup>2</sup> `arrowFiller` can be used to override navArrow styling normally applied to the empty space reserved for page arrows.
 
