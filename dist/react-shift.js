@@ -92,10 +92,10 @@ exports.default = Pagination;
 Pagination.propTypes = {
   classes: _react.PropTypes.object,
   styles: _react.PropTypes.object,
-  fakeLinks: _react.PropTypes.boolean,
+  fakeLinks: _react.PropTypes.bool,
   page: _react.PropTypes.number,
   pageCount: _react.PropTypes.number,
-  onClick: propTypes.func
+  onClick: _react.PropTypes.func
 };
 'use strict';
 
@@ -256,8 +256,8 @@ var ReactShift = (function (_Component) {
 
       var pagination = _react2.default.createElement(_pagination2.default, _extends({
         onClick: this.setPage,
-        page: true,
-        pageCount: true
+        page: page,
+        pageCount: pageCount
       }, this.props));
 
       var fastLinksList = fastLinks ? _react2.default.createElement(
@@ -267,7 +267,7 @@ var ReactShift = (function (_Component) {
           return _react2.default.createElement(
             'a',
             {
-              key: 'fastLink' + i,
+              key: 'fastLink-' + i,
               className: classes.fastLinks,
               style: styles.faskLinks,
               href: fakeLinks ? '#' : null,
@@ -354,6 +354,7 @@ ReactShift.propTypes = {
     previous: _react.PropTypes.string
   }),
   fastLinks: _react.PropTypes.object,
+  fakeLinks: _react.PropTypes.bool,
   transitions: _react.PropTypes.shape({
     active: _react.PropTypes.bool,
     name: _react.PropTypes.string

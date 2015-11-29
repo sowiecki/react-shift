@@ -38,7 +38,7 @@ export default class ReactShift extends Component {
     const { page, pageCount } = this.state;
 
     if (page !== pageCount) {
-      this.setState({page: page + 1});
+      this.setState({ page: page + 1 });
     }
   }
 
@@ -115,8 +115,8 @@ export default class ReactShift extends Component {
     const pagination = (
       <Pagination
         onClick={this.setPage}
-        page
-        pageCount
+        page={page}
+        pageCount={pageCount}
         {...this.props}/>
     );
 
@@ -125,7 +125,7 @@ export default class ReactShift extends Component {
         {Object.keys(fastLinks).map((i, v) => {
           return (
             <a
-              key={`fastLink${i}`}
+              key={`fastLink-${i}`}
               className={classes.fastLinks}
               style={styles.faskLinks}
               href={fakeLinks ? '#' : null}
@@ -201,6 +201,7 @@ ReactShift.propTypes = {
     previous: PropTypes.string
   }),
   fastLinks: PropTypes.object,
+  fakeLinks: PropTypes.bool,
   transitions: PropTypes.shape({
     active: PropTypes.bool,
     name: PropTypes.string

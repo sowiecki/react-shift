@@ -34,7 +34,7 @@ const Pagination = (props) => {
         );
       })}
     </span>
-  )
+  );
 };
 
 export default Pagination;
@@ -42,8 +42,8 @@ export default Pagination;
 Pagination.propTypes = {
   classes: PropTypes.object,
   styles: PropTypes.object,
-  fakeLinks: PropTypes.boolean,
+  fakeLinks: PropTypes.bool,
   page: PropTypes.number,
   pageCount: PropTypes.number,
-  onClick: propTypes.func
+  onClick: PropTypes.func
 };
