@@ -33,13 +33,15 @@ Name | Type | Properties | Description | Default
 `transitions` | *object* | `active`, `name` | Used to activate and define [ReactCSSTransitionGroup](https://facebook.github.io/react/docs/animation.html) on the page subcomponent. | `null`
 `classes` | *object* | `wrapper`, `navigation`, `page`, `pagination`, `pageNumber`<sup>1</sup>, `currentPage`, `fastLinks`, `navArrow`, `nextPage`, `previousPage`, `arrowFiller`<sup>2</sup> | Passes class names to subcomponent `className` properties. | `null`
 `styles` | *object* | `wrapper`, `navigation`, `page`, `pagination`, `pageNumber`<sup>3</sup>, `currentPage`, `fastLinks`, `navArrow`, `nextPage`, `previousPage`, `arrowFiller`<sup>2</sup> | Passes styles to subcomponent `style` properties. | `null`
-`scrollable` | *boolean* | *N/A* | **Experimental**, has problems on mobile devices. Specifies if mouse wheel scrolling events on the page subcomponent triggers page changes. | `false`
+`scrollable`<sup>**4**</sup> | *boolean* | *N/A* | Specifies if mouse wheel scrolling events on the page subcomponent triggers page changes. | `false`
 
 <sup>1</sup> `pageNumber` applies that generic className *every* page number element, but also creates a unique class name on each page number using `${yourDefinedClass}-${pageIndex}`.
 
 <sup>2</sup> `arrowFiller` can be used to override navArrow styling normally applied to the empty space reserved for page arrows.
 
 <sup>3</sup> Unlike the `className` version, this prop does **not** currently offer unique styling for each page index number.
+
+<sup>4</sup> This feature is **highly experimental** and **not recommended** for use. Seriously, don't use it; it makes the component nearly unusable on laptop touchpads and mobile devices.
 
 ## Advanced example:
 ```js
