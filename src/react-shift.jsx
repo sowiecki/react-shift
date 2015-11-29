@@ -3,6 +3,8 @@ import React, { Component, PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import Arrow from './arrow.jsx';
+import Pagination from './pagination.jsx';
+
 import touchHandler from './touch-handler';
 
 
@@ -44,12 +46,12 @@ export default class ReactShift extends Component {
     const { page } = this.state;
 
     if (page !== 0) {
-      this.setState({page: page - 1});
+      this.setState({ page: page - 1 });
     }
   }
 
   setPage(n) {
-    this.setState({page: n});
+    this.setState({ page: n });
   }
 
   handleWheel(e) {
@@ -84,11 +86,6 @@ export default class ReactShift extends Component {
             styles } = this.props;
     const { page, pageCount } = this.state;
 
-
-    const paginationArray = Array
-      .apply(null, {length: pageCount + 1})
-      .map(Number.call, Number);
-
     const filler = (
       <div
         className={classes.arrowFiller || classes.navArrow}
@@ -116,32 +113,11 @@ export default class ReactShift extends Component {
     );
 
     const pagination = (
-      <span
-        key='react-shift-page-numbers'
-        className={classes.pagination}
-        style={styles.pagination}>
-        {paginationArray.map((n) => {
-          return n === page ? (
-            <a
-              key={`currentPage-${page}`}
-              className={`${classes.pageNumber}-${n} ${classes.currentPage}`}
-              // TODO Implement unique style prop for each page number element
-              style={styles.currentPage}
-              href={fakeLinks ? '#' : null}>
-              {n + 1}
-            </a>
-          ) : (
-            <a
-              key={`page-${n}`}
-              className={classes.pageNumber}
-              style={styles.pageNumber}
-              href={fakeLinks ? '#' : null}
-              onClick={this.setPage.bind(null, n)}>
-              {n + 1}
-            </a>
-          );
-        })}
-      </span>
+      <Pagination
+        onClick={this.setPage}
+        page
+        pageCount
+        {...this.props}/>
     );
 
     const fastLinksList = fastLinks ? (
@@ -203,7 +179,8 @@ ReactShift.propTypes = {
     fastLinks: PropTypes.string,
     navArrow: PropTypes.string,
     nextPage: PropTypes.string,
-    previousPage: PropTypes.string
+    previousPage: PropTypes.string,
+    arrowFiller: PropTypes.string
   }),
   styles: PropTypes.shape({
     wrapper: PropTypes.object,
@@ -215,7 +192,8 @@ ReactShift.propTypes = {
     fastLinks: PropTypes.object,
     navArrow: PropTypes.object,
     nextPage: PropTypes.object,
-    previousPage: PropTypes.object
+    previousPage: PropTypes.object,
+    arrowFiller: PropTypes.object
   }),
   arrowLabels: PropTypes.shape({
     className: PropTypes.string,
@@ -231,6 +209,7 @@ ReactShift.propTypes = {
 };
 
 ReactShift.defaultProps = {
+  classes: {},
   styles: {},
   arrowLabels: {
     next: 'Next page',

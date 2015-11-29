@@ -37,6 +37,70 @@ Arrow.propTypes = {
 exports.default = Arrow;
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Pagination = function Pagination(props) {
+  var classes = props.classes;
+  var styles = props.styles;
+  var fakeLinks = props.fakeLinks;
+  var page = props.page;
+  var pageCount = props.pageCount;
+  var onClick = props.onClick;
+
+  var paginationArray = Array.apply(null, { length: pageCount + 1 }).map(Number.call, Number);
+
+  return _react2.default.createElement(
+    'span',
+    {
+      key: 'react-shift-pagination',
+      className: classes.pagination,
+      style: styles.pagination },
+    paginationArray.map(function (n) {
+      return n === page ? _react2.default.createElement(
+        'a',
+        {
+          key: 'currentPage-' + page,
+          className: classes.pageNumber + '-' + n + ' ' + classes.currentPage
+          // TODO Implement unique style prop for each page number element
+          , style: styles.currentPage,
+          href: fakeLinks ? '#' : null },
+        n + 1
+      ) : _react2.default.createElement(
+        'a',
+        {
+          key: 'page-' + n,
+          className: classes.pageNumber,
+          style: styles.pageNumber,
+          href: fakeLinks ? '#' : null,
+          onClick: onClick.bind(null, n) },
+        n + 1
+      );
+    })
+  );
+};
+
+exports.default = Pagination;
+
+Pagination.propTypes = {
+  classes: _react.PropTypes.object,
+  styles: _react.PropTypes.object,
+  fakeLinks: _react.PropTypes.boolean,
+  page: _react.PropTypes.number,
+  pageCount: _react.PropTypes.number,
+  onClick: propTypes.func
+};
+'use strict';
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 Object.defineProperty(exports, "__esModule", {
@@ -54,6 +118,10 @@ var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTran
 var _arrow = require('./arrow.jsx');
 
 var _arrow2 = _interopRequireDefault(_arrow);
+
+var _pagination = require('./pagination.jsx');
+
+var _pagination2 = _interopRequireDefault(_pagination);
 
 var _touchHandler = require('./touch-handler');
 
@@ -164,8 +232,6 @@ var ReactShift = (function (_Component) {
       var page = _state2.page;
       var pageCount = _state2.pageCount;
 
-      var paginationArray = Array.apply(null, { length: pageCount + 1 }).map(Number.call, Number);
-
       var filler = _react2.default.createElement(
         'div',
         {
@@ -188,34 +254,11 @@ var ReactShift = (function (_Component) {
         fakeLink: fakeLinks,
         onClick: this.next });
 
-      var pagination = _react2.default.createElement(
-        'span',
-        {
-          key: 'react-shift-page-numbers',
-          className: classes.pagination,
-          style: styles.pagination },
-        paginationArray.map(function (n) {
-          return n === page ? _react2.default.createElement(
-            'a',
-            {
-              key: 'currentPage-' + page,
-              className: classes.pageNumber + '-' + n + ' ' + classes.currentPage
-              // TODO Implement unique style prop for each page number element
-              , style: styles.currentPage,
-              href: fakeLinks ? '#' : null },
-            n + 1
-          ) : _react2.default.createElement(
-            'a',
-            {
-              key: 'page-' + n,
-              className: classes.pageNumber,
-              style: styles.pageNumber,
-              href: fakeLinks ? '#' : null,
-              onClick: _this2.setPage.bind(null, n) },
-            n + 1
-          );
-        })
-      );
+      var pagination = _react2.default.createElement(_pagination2.default, _extends({
+        onClick: this.setPage,
+        page: true,
+        pageCount: true
+      }, this.props));
 
       var fastLinksList = fastLinks ? _react2.default.createElement(
         'div',
@@ -289,7 +332,8 @@ ReactShift.propTypes = {
     fastLinks: _react.PropTypes.string,
     navArrow: _react.PropTypes.string,
     nextPage: _react.PropTypes.string,
-    previousPage: _react.PropTypes.string
+    previousPage: _react.PropTypes.string,
+    arrowFiller: _react.PropTypes.string
   }),
   styles: _react.PropTypes.shape({
     wrapper: _react.PropTypes.object,
@@ -301,7 +345,8 @@ ReactShift.propTypes = {
     fastLinks: _react.PropTypes.object,
     navArrow: _react.PropTypes.object,
     nextPage: _react.PropTypes.object,
-    previousPage: _react.PropTypes.object
+    previousPage: _react.PropTypes.object,
+    arrowFiller: _react.PropTypes.object
   }),
   arrowLabels: _react.PropTypes.shape({
     className: _react.PropTypes.string,
@@ -317,6 +362,7 @@ ReactShift.propTypes = {
 };
 
 ReactShift.defaultProps = {
+  classes: {},
   styles: {},
   arrowLabels: {
     next: 'Next page',
