@@ -1,3 +1,4 @@
+/* eslint react/no-did-mount-set-state:0 */
 import React, { Component, PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
@@ -22,6 +23,7 @@ export default class ReactShift extends Component {
   }
 
   componentDidMount() {
+    // TODO move this out of componentDidMount
     const { children, scrollable } = this.props;
 
     this.setState({
@@ -75,10 +77,12 @@ export default class ReactShift extends Component {
 
   render() {
     const { fastLinks,
+            fakeLinks,
             arrowLabels,
             transitions,
             children,
-            classes } = this.props;
+            classes,
+            styles } = this.props;
     const { page, pageCount } = this.state;
 
 
@@ -88,7 +92,8 @@ export default class ReactShift extends Component {
 
     const filler = (
       <div
-        className={classes.navArrow}>
+        className={classes.arrowFiller || classes.navArrow}
+        style={styles.arrowFiller || styles.navArrow}>
         {String.fromCharCode('\u00a0')}
       </div>
     );
@@ -96,27 +101,34 @@ export default class ReactShift extends Component {
     const leftArrow = page === 0 ? filler : (
       <Arrow
         className={classes.previousPage}
+        style={styles.previousPage}
         label={arrowLabels.previous}
+        fakeLink={fakeLinks}
         onClick={this.previous}/>
     );
 
     const rightArrow = page === pageCount ? filler : (
       <Arrow
         className={classes.nextPage}
+        style={styles.nextPage}
         label={arrowLabels.next}
+        fakeLink={fakeLinks}
         onClick={this.next}/>
     );
 
     const pagination = (
       <span
         key='react-shift-page-numbers'
-        className={classes.pagination}>
+        className={classes.pagination}
+        style={styles.pagination}>
         {paginationArray.map((n) => {
           return n === page ? (
             <a
               key={`currentPage-${page}`}
               className={`${classes.pageNumber}-${n} ${classes.currentPage}`}
-              href='#'>
+              // TODO Implement unique style prop for each page number element
+              style={styles.currentPage}
+              href={fakeLinks ? '#' : null}>
               {n + 1}
             </a>
           ) : (
@@ -124,7 +136,8 @@ export default class ReactShift extends Component {
               key={`page-${n}`}
               id={`page-${n}`}
               className={classes.pageNumber}
-              href='#'
+              style={styles.pageNumber}
+              href={fakeLinks ? '#' : null}
               onClick={this.setPage.bind(null, n)}>
               {n + 1}
             </a>
@@ -140,7 +153,8 @@ export default class ReactShift extends Component {
             <a
               key={`fastLink${i}`}
               className={classes.fastLinks}
-              href='#'
+              style={styles.faskLinks}
+              href={fakeLinks ? '#' : null}
               onClick={this.setPage.bind(null, fastLinks[i])}>
                 {Object.keys(fastLinks)[v]}
             </a>
@@ -152,21 +166,27 @@ export default class ReactShift extends Component {
     return (
       <div
         key='react-shift'
+        className={classes.wrapper}
+        style={styles.wrapper}
         onWheelCapture={this.handleWheel}
         onTouchMove={this.handconstouch}>
-        <div className={classes.page}>
-          {transitions ?
-            <ReactCSSTransitionGroup
-              transitionEnterTimeout={300}
-              transitionLeaveTimeout={300}
-              transitionName={transitions.name}>
-                {children[page]}
-            </ReactCSSTransitionGroup>
-          : children[page]}
+        <div
+          className={classes.page}
+          style={styles.page}>
+            {transitions ?
+              <ReactCSSTransitionGroup
+                transitionEnterTimeout={300}
+                transitionLeaveTimeout={300}
+                transitionName={transitions.name}>
+                  {children[page]}
+              </ReactCSSTransitionGroup>
+            : children[page]}
         </div>
-        <nav className={classes.navigation}>
-          {fastLinksList}
-          {leftArrow} {pagination} {rightArrow}
+        <nav
+          className={classes.navigation}
+          style={styles.navigation}>
+            {fastLinksList}
+            {leftArrow} {pagination} {rightArrow}
         </nav>
       </div>
     );
@@ -175,7 +195,30 @@ export default class ReactShift extends Component {
 
 ReactShift.propTypes = {
   children: PropTypes.node.isRequired,
-  classes: PropTypes.object,
+  classes: PropTypes.shape({
+    wrapper: PropTypes.string,
+    navigation: PropTypes.string,
+    page: PropTypes.string,
+    pagination: PropTypes.string,
+    pageNumber: PropTypes.string,
+    currentPage: PropTypes.string,
+    fastLinks: PropTypes.string,
+    navArrow: PropTypes.string,
+    nextPage: PropTypes.string,
+    previousPage: PropTypes.string
+  }),
+  styles: PropTypes.shape({
+    wrapper: PropTypes.object,
+    navigation: PropTypes.object,
+    page: PropTypes.object,
+    pagination: PropTypes.object,
+    pageNumber: PropTypes.object,
+    currentPage: PropTypes.object,
+    fastLinks: PropTypes.object,
+    navArrow: PropTypes.object,
+    nextPage: PropTypes.object,
+    previousPage: PropTypes.object
+  }),
   arrowLabels: PropTypes.shape({
     className: PropTypes.string,
     next: PropTypes.string,
@@ -190,10 +233,12 @@ ReactShift.propTypes = {
 };
 
 ReactShift.defaultProps = {
+  styles: {},
   arrowLabels: {
     next: 'Next page',
     previous: 'Previous page'
   },
-  // TODO: Scrollable is broken, fix it
+  fakeLinks: true,
+  // TODO: Fix scrolling problems on mobile devices
   scrollable: false
 };

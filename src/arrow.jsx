@@ -1,19 +1,20 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
-const Arrow = ({ id, onClick, label }) => {
-  return (
-    <div className='react-shift-nav-arrow'>
-      <a id={id} href='#' onClick={onClick}>
-        {label}
-      </a>
-    </div>
-  );
-};
+const Arrow = ({ fakeLink, onClick, label, className, style }) => (
+  <a
+    className={className}
+    style={style}
+    href={fakeLink ? '#' : null}
+    onClick={onClick}>
+      {label}
+  </a>
+);
 
 Arrow.propTypes = {
-  id: PropTypes.string,
   onClick: PropTypes.func,
-  label: PropTypes.string
+  label: PropTypes.string,
+  className: PropTypes.string,
+  style: PropTypes.object
 };
 
 export default Arrow;

@@ -15,7 +15,13 @@ const fastLinks = {
   'Fifth page': 4
 };
 
+const transitions = {
+  active: true,
+  name: 'react-shift-page'
+};
+
 const classes = {
+  wrapper: 'react-shift-wrapper',
   navigation: 'react-shift-navigation',
   page: 'react-shift-page',
   pagination: 'react-shift-pagination',
@@ -24,17 +30,22 @@ const classes = {
   fastLinks: 'react-shift-fast-link',
   navArrow: 'react-shift-nav-arrow',
   nextPage: 'react-shift-next-page',
-  previousPage: 'react-shift-previous-page'
+  previousPage: 'react-shift-previous-page',
+  arrowFiller: 'react-shift-previous-page'
 }
 
-const transitions = {
-  active: true,
-  name: 'react-shift-page'
+const styles = {
+  wrapper: {
+    borderRadius: '10px',
+    padding: '20px',
+    backgroundColor: '#D3D3D3'
+  }
 };
 
 render(
   <Shift
     classes={classes}
+    styles={styles}
     arrowLabels={arrowLabels}
     fastLinks={fastLinks}
     transitions={transitions}>

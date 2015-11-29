@@ -1,7 +1,9 @@
 ![](./example.gif)
 
 # react-shift
-A simple, paginated carousel component for [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) elements. `react-shift` can be used to serve pages of content or dropped as a small component into a larger stack.
+A paginated "carousel-like" component for [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) elements. Can be used to serve pages of content or dropped as a small component into a larger stack.
+
+Currently hard-swaps content, so smooth scrolling/sliding can only be simulated using `ReactCSSTransitionGroup`.
 
 ## Installation
 ```
@@ -21,17 +23,25 @@ render(
 ```
 
 ## Props
-The component can be passed objects as props to customize the navigation.
+The component can be passed objects as props to customize the navigation and page elements.
 
 Name | Type | Properties | Description | Default
 ------------- | ------------- | ------------- | ------------- | -------------
-`arrowLabels` | *object* | `next`, `previous` | Specifies custom next and previous page link labels. | `null`
+`arrowLabels` | *object* | `next`, `previous` | Specifies custom next and previous page link labels. | `{ next: 'Next page', previous: 'Previous page' }`
 `fastLinks` | *object* | Custom key/value pairs each defining a fast links. |  Creates a shortcut link to a page, where the key is the link name and the value is the page index to link to. | `null`
+`fakeLinks` | *boolean* | *N/A* |  Toggles psuedohyperlinking on naviation elements. | `true`
 `transitions` | *object* | `active`, `name` | Used to activate and define [ReactCSSTransitionGroup](https://facebook.github.io/react/docs/animation.html) on the page subcomponent. | `null`
-`classes` | *object* | `navigation`, `page`, `pagination`, `pageNumber`, `currentPage`, `fastLinks`, `navArrow`, `nextPage`, `previousPage` | Passes class names to subcomponent `classNames`. | `null`
+`classes` | *object* | `wrapper`, `navigation`, `page`, `pagination`, `pageNumber`<sup>1</sup>, `currentPage`, `fastLinks`, `navArrow`, `nextPage`, `previousPage`, `arrowFiller`<sup>2</sup> | Passes class names to subcomponent `className` properties. | `null`
+`styles` | *object* | `wrapper`, `navigation`, `page`, `pagination`, `pageNumber`<sup>3</sup>, `currentPage`, `fastLinks`, `navArrow`, `nextPage`, `previousPage`, `arrowFiller`<sup>2</sup> | Passes styles to subcomponent `style` properties. | `null`
 `scrollable` | *boolean* | *N/A* | **Experimental**, has problems on mobile devices. Specifies if mouse wheel scrolling events on the page subcomponent triggers page changes. | `false`
 
-Advanced example:
+<sup>1</sup> `pageNumber` (className) applies that generic className *every* page number element, but also creates a unique class name on each page number using `${yourDefinedClass}-${pageIndex}`.
+
+<sup>2</sup> `arrowFiller` can be used to override navArrow styling normally applied to the empty space reserved for page arrows.
+
+<sup>3</sup> Unlike the `className` version, this prop does **not** currently offer unique styling for each page index number.
+
+## Advanced example:
 ```js
 const arrowLabels = {
   next: '>>>',
@@ -55,7 +65,7 @@ const classes = {
   previousPage: 'react-shift-previous-page'
 };
 
-React.render(
+ReactDOM.render(
   <Shift
     classes={classes}
     arrowLabels={arrowLabels}
