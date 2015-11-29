@@ -24,7 +24,7 @@ export default class ReactShift extends Component {
     this.handleTouch = this.handleTouch.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     // TODO move this out of componentDidMount
     const { children, scrollable } = this.props;
 
@@ -96,8 +96,8 @@ export default class ReactShift extends Component {
 
     const leftArrow = page === 0 ? filler : (
       <Arrow
-        className={classes.previousPage}
-        style={styles.previousPage}
+        className={classes.previousPage || classes.navArrow}
+        style={styles.previousPage || styles.navArrow}
         label={arrowLabels.previous}
         fakeLink={fakeLinks}
         onClick={this.previous}/>
@@ -105,13 +105,13 @@ export default class ReactShift extends Component {
 
     const rightArrow = page === pageCount ? filler : (
       <Arrow
-        className={classes.nextPage}
-        style={styles.nextPage}
+        className={classes.nextPage || classes.navArrow}
+        style={styles.nextPage || styles.navArrow}
         label={arrowLabels.next}
         fakeLink={fakeLinks}
         onClick={this.next}/>
     );
-
+console.log(pageCount)
     const pagination = (
       <Pagination
         onClick={this.setPage}
