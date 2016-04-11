@@ -4,78 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Arrow = function Arrow(_ref) {
-  var fakeLink = _ref.fakeLink;
-  var onClick = _ref.onClick;
-  var label = _ref.label;
-  var className = _ref.className;
-  var style = _ref.style;
-  return _react2.default.createElement(
-    'a',
-    {
-      className: className,
-      style: style,
-      href: fakeLink ? '#' : null,
-      onClick: onClick },
-    label
-  );
-};
-
-Arrow.propTypes = {
-  onClick: _react.PropTypes.func,
-  label: _react.PropTypes.string,
-  className: _react.PropTypes.string,
-  style: _react.PropTypes.object
-};
-
-exports.default = Arrow;
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var position = {
-  right: 0,
-  left: 0,
-  direction: null,
-  clear: function clear() {
-    undefined.right = 0;
-    undefined.left = 0;
-  }
-};
-
-exports.default = function (e) {
-  e = Math.round(e);
-  position.direction = null;
-  if (e < 450) {
-    position.left += 1;
-    position.right = 0;
-  } else if (e > 550) {
-    position.right += 1;
-    position.left = 0;
-  }
-  if (position.left > 4) {
-    position.clear();
-    return 'left';
-  }
-  if (position.right > 4) {
-    position.clear();
-    return 'right';
-  }
-};
-'use strict';
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -89,9 +18,9 @@ var _arrow = require('./arrow.jsx');
 
 var _arrow2 = _interopRequireDefault(_arrow);
 
-var _handleSwipe = require('./handle-swipe');
+var _touchHandler = require('./touch-handler');
 
-var _handleSwipe2 = _interopRequireDefault(_handleSwipe);
+var _touchHandler2 = _interopRequireDefault(_touchHandler);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -101,7 +30,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint react/no-did-mount-set-state:0 */
 
-var ReactShift = (function (_Component) {
+
+var ReactShift = function (_Component) {
   _inherits(ReactShift, _Component);
 
   function ReactShift(props) {
@@ -130,6 +60,7 @@ var ReactShift = (function (_Component) {
       var children = _props.children;
       var scrollable = _props.scrollable;
 
+
       this.setState({
         pageCount: children.length - 1,
         scrollable: scrollable
@@ -142,6 +73,7 @@ var ReactShift = (function (_Component) {
       var page = _state.page;
       var pageCount = _state.pageCount;
 
+
       if (page !== pageCount) {
         this.setState({ page: page + 1 });
       }
@@ -150,6 +82,7 @@ var ReactShift = (function (_Component) {
     key: 'previous',
     value: function previous() {
       var page = this.state.page;
+
 
       if (page !== 0) {
         this.setState({ page: page - 1 });
@@ -165,6 +98,7 @@ var ReactShift = (function (_Component) {
     value: function handleWheel(e) {
       var scrollable = this.props.scrollable;
 
+
       if (scrollable) {
         if (e.deltaY > 0) {
           this.next();
@@ -176,14 +110,11 @@ var ReactShift = (function (_Component) {
   }, {
     key: 'handleTouch',
     value: function handleTouch(e) {
-      switch ((0, _handleSwipe2.default)(e.changedTouches[0].pageX)) {
-        case 'left':
-          this.next();
-          break;
-        case 'right':
-          this.previous();
-          break;
-      }
+      var next = this.next;
+      var previous = this.previous;
+
+
+      (0, _touchHandler2.default)(e.changedTouches[0].pageX, next, previous);
     }
   }, {
     key: 'render',
@@ -201,6 +132,7 @@ var ReactShift = (function (_Component) {
       var _state2 = this.state;
       var page = _state2.page;
       var pageCount = _state2.pageCount;
+
 
       var paginationArray = Array.apply(null, { length: pageCount + 1 }).map(Number.call, Number);
 
@@ -246,7 +178,6 @@ var ReactShift = (function (_Component) {
             'a',
             {
               key: 'page-' + n,
-              id: 'page-' + n,
               className: classes.pageNumber,
               style: styles.pageNumber,
               href: fakeLinks ? '#' : null,
@@ -312,9 +243,7 @@ var ReactShift = (function (_Component) {
   }]);
 
   return ReactShift;
-})(_react.Component);
-
-exports.default = ReactShift;
+}(_react.Component);
 
 ReactShift.propTypes = {
   children: _react.PropTypes.node.isRequired,
@@ -365,4 +294,5 @@ ReactShift.defaultProps = {
   // TODO: Fix scrolling problems on mobile devices
   scrollable: false
 };
-//# sourceMappingURL=react-shift.js.map
+
+exports.default = ReactShift;
