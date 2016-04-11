@@ -13,7 +13,7 @@ const path = 'src/**/*';
 const babelPresets = { presets: ['es2015', 'react'] };
 
 // Development
-gulp.task('dev', function () {
+gulp.task('dev', () => {
   return gulp.src(path)
     .pipe(sourcemaps.init())
     .pipe(babel(babelPresets))
@@ -22,11 +22,11 @@ gulp.task('dev', function () {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('watch', ['dev'], function () {
+gulp.task('watch', ['dev'], () => {
   gulp.watch(path, ['dev']);
 });
 
-gulp.task('lint', function () {
+gulp.task('lint', () => {
   return gulp.src([path])
     .pipe(eslint())
     .pipe(eslint.format())
@@ -37,12 +37,12 @@ gulp.task('lint', function () {
 gulp.task('prod', ['lint', 'dev']);
 
 // Demo
-gulp.task('compileDemo', function () {
+gulp.task('compileDemo', () => {
   browserify({
       entries: './demo/demo.jsx',
       debug: true
     })
-    .on('error', function (err) {
+    .on('error', (err) => {
       console.log(err.toString());
       this.emit('end');
     })
@@ -53,6 +53,6 @@ gulp.task('compileDemo', function () {
     .pipe(gulp.dest('./demo'));
 });
 
-gulp.task('demo', ['compileDemo'], function () {
+gulp.task('demo', ['compileDemo'], () => {
   gulp.watch([path, 'demo/demo.jsx'], ['compileDemo']);
 });

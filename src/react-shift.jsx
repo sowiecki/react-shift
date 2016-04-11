@@ -7,8 +7,7 @@ import Pagination from './pagination.jsx';
 
 import touchHandler from './touch-handler';
 
-
-export default class ReactShift extends Component {
+class ReactShift extends Component {
   constructor(props) {
     super(props);
 
@@ -87,11 +86,11 @@ export default class ReactShift extends Component {
     const { page, pageCount } = this.state;
 
     const filler = (
-      <div
+      <a
         className={classes.arrowFiller || classes.navArrow}
         style={styles.arrowFiller || styles.navArrow}>
         {String.fromCharCode('\u00a0')}
-      </div>
+      </a>
     );
 
     const leftArrow = page === 0 ? filler : (
@@ -220,3 +219,5 @@ ReactShift.defaultProps = {
   // TODO: Fix scrolling problems on mobile devices
   scrollable: false
 };
+
+export default ReactShift;

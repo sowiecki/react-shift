@@ -28,6 +28,7 @@ var Arrow = function Arrow(_ref) {
 };
 
 Arrow.propTypes = {
+  fakeLink: _react.PropTypes.bool,
   onClick: _react.PropTypes.func,
   label: _react.PropTypes.string,
   className: _react.PropTypes.string,
@@ -55,7 +56,30 @@ var Pagination = function Pagination(props) {
   var pageCount = props.pageCount;
   var onClick = props.onClick;
 
+
   var paginationArray = Array.apply(null, { length: pageCount + 1 }).map(Number.call, Number);
+
+  var renderPage = function renderPage(n) {
+    return n === page ? _react2.default.createElement(
+      'a',
+      {
+        key: 'currentPage-' + page,
+        className: classes.pageNumber + '-' + n + ' ' + classes.currentPage
+        // TODO Implement unique style prop for each page number element
+        , style: styles.currentPage,
+        href: fakeLinks ? '#' : null },
+      n + 1
+    ) : _react2.default.createElement(
+      'a',
+      {
+        key: 'page-' + n,
+        className: classes.pageNumber,
+        style: styles.pageNumber,
+        href: fakeLinks ? '#' : null,
+        onClick: onClick.bind(null, n) },
+      n + 1
+    );
+  };
 
   return _react2.default.createElement(
     'span',
@@ -63,31 +87,12 @@ var Pagination = function Pagination(props) {
       key: 'react-shift-pagination',
       className: classes.pagination,
       style: styles.pagination },
-    paginationArray.map(function (n) {
-      return n === page ? _react2.default.createElement(
-        'a',
-        {
-          key: 'currentPage-' + page,
-          className: classes.pageNumber + '-' + n + ' ' + classes.currentPage
-          // TODO Implement unique style prop for each page number element
-          , style: styles.currentPage,
-          href: fakeLinks ? '#' : null },
-        n + 1
-      ) : _react2.default.createElement(
-        'a',
-        {
-          key: 'page-' + n,
-          className: classes.pageNumber,
-          style: styles.pageNumber,
-          href: fakeLinks ? '#' : null,
-          onClick: onClick.bind(null, n) },
-        n + 1
-      );
-    })
+    paginationArray.map(renderPage)
   );
 };
 
 exports.default = Pagination;
+
 
 Pagination.propTypes = {
   classes: _react.PropTypes.object,
@@ -99,13 +104,13 @@ Pagination.propTypes = {
 };
 'use strict';
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -135,7 +140,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint react/no-did-mount-set-state:0 */
 
-var ReactShift = (function (_Component) {
+
+var ReactShift = function (_Component) {
   _inherits(ReactShift, _Component);
 
   function ReactShift(props) {
@@ -164,6 +170,7 @@ var ReactShift = (function (_Component) {
       var children = _props.children;
       var scrollable = _props.scrollable;
 
+
       this.setState({
         pageCount: children.length - 1,
         scrollable: scrollable
@@ -176,6 +183,7 @@ var ReactShift = (function (_Component) {
       var page = _state.page;
       var pageCount = _state.pageCount;
 
+
       if (page !== pageCount) {
         this.setState({ page: page + 1 });
       }
@@ -184,6 +192,7 @@ var ReactShift = (function (_Component) {
     key: 'previous',
     value: function previous() {
       var page = this.state.page;
+
 
       if (page !== 0) {
         this.setState({ page: page - 1 });
@@ -199,6 +208,7 @@ var ReactShift = (function (_Component) {
     value: function handleWheel(e) {
       var scrollable = this.props.scrollable;
 
+
       if (scrollable) {
         if (e.deltaY > 0) {
           this.next();
@@ -212,6 +222,7 @@ var ReactShift = (function (_Component) {
     value: function handleTouch(e) {
       var next = this.next;
       var previous = this.previous;
+
 
       (0, _touchHandler2.default)(e.changedTouches[0].pageX, next, previous);
     }
@@ -232,8 +243,9 @@ var ReactShift = (function (_Component) {
       var page = _state2.page;
       var pageCount = _state2.pageCount;
 
+
       var filler = _react2.default.createElement(
-        'div',
+        'a',
         {
           className: classes.arrowFiller || classes.navArrow,
           style: styles.arrowFiller || styles.navArrow },
@@ -316,9 +328,7 @@ var ReactShift = (function (_Component) {
   }]);
 
   return ReactShift;
-})(_react.Component);
-
-exports.default = ReactShift;
+}(_react.Component);
 
 ReactShift.propTypes = {
   children: _react.PropTypes.node.isRequired,
@@ -373,6 +383,8 @@ ReactShift.defaultProps = {
   // TODO: Fix scrolling problems on mobile devices
   scrollable: false
 };
+
+exports.default = ReactShift;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
