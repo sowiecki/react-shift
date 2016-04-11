@@ -1,6 +1,6 @@
 {
   "name": "react-shift",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "description": "React carousel/slider with pagination.",
   "main": "index.jsx",
   "scripts": {
@@ -8,7 +8,9 @@
     "prod": "gulp prod",
     "lint": "gulp lint",
     "demo": "gulp demo",
-    "dist": "rm -rf dist && babel src/ -d dist/"
+    "karma": "./node_modules/.bin/karma start karma.conf.js",
+    "test": "npm run lint && npm run karma",
+    "build": "gulp dev && npm run test"
   },
   "repository": {
     "type": "git",
@@ -38,15 +40,34 @@
     "babel-runtime": "^6.6.1",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
-    "eslint-plugin-react": "^3.2.3",
+    "chai": "^3.4.1",
+    "eslint": "^2.7.0",
+    "eslint-config-airbnb": "^6.2.0",
+    "eslint-plugin-filenames": "^0.2.0",
+    "eslint-plugin-react": "^4.3.0",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.1",
     "gulp-concat": "^2.6.0",
     "gulp-eslint": "^2.0.0",
     "gulp-sourcemaps": "^1.6.0",
+    "karma": "^0.13.22",
+    "karma-babel-preprocessor": "^6.0.1",
+    "karma-browserify": "^5.0.3",
+    "karma-chai": "^0.1.0",
+    "karma-chai-plugins": "^0.6.1",
+    "karma-mocha": "^0.2.1",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-phantomjs-shim": "^1.1.2",
+    "karma-spec-reporter": "0.0.26",
     "matchdep": "^0.3.0",
+    "mocha": "^2.3.4",
+    "phantomjs-prebuilt": "^2.1.7",
+    "react-addons-test-utils": "^15.0.1",
     "react-dom": "^15.0.0",
+    "react-shallow-render": "^1.0.1",
+    "react-shallow-renderer-helpers": "^2.0.2",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
   }
 }

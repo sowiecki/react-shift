@@ -3,6 +3,8 @@ import React, { Component, PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import Arrow from './arrow.jsx';
+import Pagination from './pagination.jsx';
+
 import touchHandler from './touch-handler';
 
 class ReactShift extends Component {
@@ -21,7 +23,7 @@ class ReactShift extends Component {
     this.handleTouch = this.handleTouch.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     // TODO move this out of componentDidMount
     const { children, scrollable } = this.props;
 
@@ -35,7 +37,7 @@ class ReactShift extends Component {
     const { page, pageCount } = this.state;
 
     if (page !== pageCount) {
-      this.setState({page: page + 1});
+      this.setState({ page: page + 1 });
     }
   }
 
@@ -43,12 +45,12 @@ class ReactShift extends Component {
     const { page } = this.state;
 
     if (page !== 0) {
-      this.setState({page: page - 1});
+      this.setState({ page: page - 1 });
     }
   }
 
   setPage(n) {
-    this.setState({page: n});
+    this.setState({ page: n });
   }
 
   handleWheel(e) {
@@ -83,17 +85,12 @@ class ReactShift extends Component {
             styles } = this.props;
     const { page, pageCount } = this.state;
 
-
-    const paginationArray = Array
-      .apply(null, {length: pageCount + 1})
-      .map(Number.call, Number);
-
     const filler = (
-      <div
+      <a
         className={classes.arrowFiller || classes.navArrow}
         style={styles.arrowFiller || styles.navArrow}>
         {String.fromCharCode('\u00a0')}
-      </div>
+      </a>
     );
 
     const leftArrow = page === 0 ? filler : (
@@ -115,32 +112,11 @@ class ReactShift extends Component {
     );
 
     const pagination = (
-      <span
-        key='react-shift-page-numbers'
-        className={classes.pagination}
-        style={styles.pagination}>
-        {paginationArray.map((n) => {
-          return n === page ? (
-            <a
-              key={`currentPage-${page}`}
-              className={`${classes.pageNumber}-${n} ${classes.currentPage}`}
-              // TODO Implement unique style prop for each page number element
-              style={styles.currentPage}
-              href={fakeLinks ? '#' : null}>
-              {n + 1}
-            </a>
-          ) : (
-            <a
-              key={`page-${n}`}
-              className={classes.pageNumber}
-              style={styles.pageNumber}
-              href={fakeLinks ? '#' : null}
-              onClick={this.setPage.bind(null, n)}>
-              {n + 1}
-            </a>
-          );
-        })}
-      </span>
+      <Pagination
+        onClick={this.setPage}
+        page={page}
+        pageCount={pageCount}
+        {...this.props}/>
     );
 
     const fastLinksList = fastLinks ? (
@@ -148,7 +124,7 @@ class ReactShift extends Component {
         {Object.keys(fastLinks).map((i, v) => {
           return (
             <a
-              key={`fastLink${i}`}
+              key={`fastLink-${i}`}
               className={classes.fastLinks}
               style={styles.faskLinks}
               href={fakeLinks ? '#' : null}
@@ -202,7 +178,8 @@ ReactShift.propTypes = {
     fastLinks: PropTypes.string,
     navArrow: PropTypes.string,
     nextPage: PropTypes.string,
-    previousPage: PropTypes.string
+    previousPage: PropTypes.string,
+    arrowFiller: PropTypes.string
   }),
   styles: PropTypes.shape({
     wrapper: PropTypes.object,
@@ -214,7 +191,8 @@ ReactShift.propTypes = {
     fastLinks: PropTypes.object,
     navArrow: PropTypes.object,
     nextPage: PropTypes.object,
-    previousPage: PropTypes.object
+    previousPage: PropTypes.object,
+    arrowFiller: PropTypes.object
   }),
   arrowLabels: PropTypes.shape({
     className: PropTypes.string,
@@ -222,6 +200,7 @@ ReactShift.propTypes = {
     previous: PropTypes.string
   }),
   fastLinks: PropTypes.object,
+  fakeLinks: PropTypes.bool,
   transitions: PropTypes.shape({
     active: PropTypes.bool,
     name: PropTypes.string
@@ -230,6 +209,7 @@ ReactShift.propTypes = {
 };
 
 ReactShift.defaultProps = {
+  classes: {},
   styles: {},
   arrowLabels: {
     next: 'Next page',

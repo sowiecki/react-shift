@@ -11,6 +11,7 @@ const Arrow = ({ fakeLink, onClick, label, className, style }) => (
 );
 
 Arrow.propTypes = {
+  fakeLink: PropTypes.bool,
   onClick: PropTypes.func,
   label: PropTypes.string,
   className: PropTypes.string,

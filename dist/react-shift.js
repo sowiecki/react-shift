@@ -4,6 +4,112 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Arrow = function Arrow(_ref) {
+  var fakeLink = _ref.fakeLink;
+  var onClick = _ref.onClick;
+  var label = _ref.label;
+  var className = _ref.className;
+  var style = _ref.style;
+  return _react2.default.createElement(
+    'a',
+    {
+      className: className,
+      style: style,
+      href: fakeLink ? '#' : null,
+      onClick: onClick },
+    label
+  );
+};
+
+Arrow.propTypes = {
+  fakeLink: _react.PropTypes.bool,
+  onClick: _react.PropTypes.func,
+  label: _react.PropTypes.string,
+  className: _react.PropTypes.string,
+  style: _react.PropTypes.object
+};
+
+exports.default = Arrow;
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Pagination = function Pagination(props) {
+  var classes = props.classes;
+  var styles = props.styles;
+  var fakeLinks = props.fakeLinks;
+  var page = props.page;
+  var pageCount = props.pageCount;
+  var onClick = props.onClick;
+
+
+  var paginationArray = Array.apply(null, { length: pageCount + 1 }).map(Number.call, Number);
+
+  var renderPage = function renderPage(n) {
+    return n === page ? _react2.default.createElement(
+      'a',
+      {
+        key: 'currentPage-' + page,
+        className: classes.pageNumber + '-' + n + ' ' + classes.currentPage
+        // TODO Implement unique style prop for each page number element
+        , style: styles.currentPage,
+        href: fakeLinks ? '#' : null },
+      n + 1
+    ) : _react2.default.createElement(
+      'a',
+      {
+        key: 'page-' + n,
+        className: classes.pageNumber,
+        style: styles.pageNumber,
+        href: fakeLinks ? '#' : null,
+        onClick: onClick.bind(null, n) },
+      n + 1
+    );
+  };
+
+  return _react2.default.createElement(
+    'span',
+    {
+      key: 'react-shift-pagination',
+      className: classes.pagination,
+      style: styles.pagination },
+    paginationArray.map(renderPage)
+  );
+};
+
+exports.default = Pagination;
+
+
+Pagination.propTypes = {
+  classes: _react.PropTypes.object,
+  styles: _react.PropTypes.object,
+  fakeLinks: _react.PropTypes.bool,
+  page: _react.PropTypes.number,
+  pageCount: _react.PropTypes.number,
+  onClick: _react.PropTypes.func
+};
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -17,6 +123,10 @@ var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTran
 var _arrow = require('./arrow.jsx');
 
 var _arrow2 = _interopRequireDefault(_arrow);
+
+var _pagination = require('./pagination.jsx');
+
+var _pagination2 = _interopRequireDefault(_pagination);
 
 var _touchHandler = require('./touch-handler');
 
@@ -53,8 +163,8 @@ var ReactShift = function (_Component) {
   }
 
   _createClass(ReactShift, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
       // TODO move this out of componentDidMount
       var _props = this.props;
       var children = _props.children;
@@ -134,10 +244,8 @@ var ReactShift = function (_Component) {
       var pageCount = _state2.pageCount;
 
 
-      var paginationArray = Array.apply(null, { length: pageCount + 1 }).map(Number.call, Number);
-
       var filler = _react2.default.createElement(
-        'div',
+        'a',
         {
           className: classes.arrowFiller || classes.navArrow,
           style: styles.arrowFiller || styles.navArrow },
@@ -158,34 +266,11 @@ var ReactShift = function (_Component) {
         fakeLink: fakeLinks,
         onClick: this.next });
 
-      var pagination = _react2.default.createElement(
-        'span',
-        {
-          key: 'react-shift-page-numbers',
-          className: classes.pagination,
-          style: styles.pagination },
-        paginationArray.map(function (n) {
-          return n === page ? _react2.default.createElement(
-            'a',
-            {
-              key: 'currentPage-' + page,
-              className: classes.pageNumber + '-' + n + ' ' + classes.currentPage
-              // TODO Implement unique style prop for each page number element
-              , style: styles.currentPage,
-              href: fakeLinks ? '#' : null },
-            n + 1
-          ) : _react2.default.createElement(
-            'a',
-            {
-              key: 'page-' + n,
-              className: classes.pageNumber,
-              style: styles.pageNumber,
-              href: fakeLinks ? '#' : null,
-              onClick: _this2.setPage.bind(null, n) },
-            n + 1
-          );
-        })
-      );
+      var pagination = _react2.default.createElement(_pagination2.default, _extends({
+        onClick: this.setPage,
+        page: page,
+        pageCount: pageCount
+      }, this.props));
 
       var fastLinksList = fastLinks ? _react2.default.createElement(
         'div',
@@ -194,7 +279,7 @@ var ReactShift = function (_Component) {
           return _react2.default.createElement(
             'a',
             {
-              key: 'fastLink' + i,
+              key: 'fastLink-' + i,
               className: classes.fastLinks,
               style: styles.faskLinks,
               href: fakeLinks ? '#' : null,
@@ -257,7 +342,8 @@ ReactShift.propTypes = {
     fastLinks: _react.PropTypes.string,
     navArrow: _react.PropTypes.string,
     nextPage: _react.PropTypes.string,
-    previousPage: _react.PropTypes.string
+    previousPage: _react.PropTypes.string,
+    arrowFiller: _react.PropTypes.string
   }),
   styles: _react.PropTypes.shape({
     wrapper: _react.PropTypes.object,
@@ -269,7 +355,8 @@ ReactShift.propTypes = {
     fastLinks: _react.PropTypes.object,
     navArrow: _react.PropTypes.object,
     nextPage: _react.PropTypes.object,
-    previousPage: _react.PropTypes.object
+    previousPage: _react.PropTypes.object,
+    arrowFiller: _react.PropTypes.object
   }),
   arrowLabels: _react.PropTypes.shape({
     className: _react.PropTypes.string,
@@ -277,6 +364,7 @@ ReactShift.propTypes = {
     previous: _react.PropTypes.string
   }),
   fastLinks: _react.PropTypes.object,
+  fakeLinks: _react.PropTypes.bool,
   transitions: _react.PropTypes.shape({
     active: _react.PropTypes.bool,
     name: _react.PropTypes.string
@@ -285,6 +373,7 @@ ReactShift.propTypes = {
 };
 
 ReactShift.defaultProps = {
+  classes: {},
   styles: {},
   arrowLabels: {
     next: 'Next page',
@@ -296,3 +385,44 @@ ReactShift.defaultProps = {
 };
 
 exports.default = ReactShift;
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var position = {
+  right: 0,
+  left: 0,
+  direction: null,
+  clear: function clear() {
+    this.right = 0;
+    this.left = 0;
+  }
+};
+
+exports.default = function (e, left, right) {
+  e = Math.round(e);
+
+  position.direction = null;
+
+  if (e < 450) {
+    position.left += 1;
+    position.right = 0;
+  } else if (e > 550) {
+    position.right += 1;
+    position.left = 0;
+  }
+
+  if (position.left > 4) {
+    position.clear();
+    left();
+    return;
+  }
+
+  if (position.right > 4) {
+    position.clear();
+    right();
+    return;
+  }
+};
+//# sourceMappingURL=react-shift.js.map

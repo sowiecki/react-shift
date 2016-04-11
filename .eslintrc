@@ -1,16 +1,16 @@
 {
   "plugins": [
-    "filenames"
+    "filenames",
+    "react"
   ],
   "extends": [
-    "defaults/configurations/walmart/es6-react"
+    "airbnb"
   ],
   "parser": "babel-eslint",
   "ecmaFeatures": {
     "jsx": true,
     "modules": true
   },
-  "plugins": ["react"],
   "env": {
     "es6": true
   },
@@ -22,8 +22,14 @@
     "no-invalid-this": 0,
     "react/jsx-closing-bracket-location": [2, "after-props"],
     "react/jsx-boolean-value": 0,
+    "react/jsx-space-before-closing": 0,
+    "react/jsx-no-bind": 0,
+    "react/sort-comp": 0,
     "valid-jsdoc": 0,
-    "prefer-spread": 0
+    "prefer-spread": 0,
+    "comma-dangle": 0,
+    "arrow-body-style": 0,
+    "no-param-reassign": 0
   },
   "globals": {
     "require": true
