@@ -28,6 +28,7 @@ var Arrow = function Arrow(_ref) {
 };
 
 Arrow.propTypes = {
+  fakeLink: _react.PropTypes.bool,
   onClick: _react.PropTypes.func,
   label: _react.PropTypes.string,
   className: _react.PropTypes.string,
@@ -35,3 +36,4 @@ Arrow.propTypes = {
 };
 
 exports.default = Arrow;
+//# sourceMappingURL=arrow.js.map

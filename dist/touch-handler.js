@@ -38,3 +38,4 @@ exports.default = function (e, left, right) {
     return;
   }
 };
+//# sourceMappingURL=touch-handler.js.map

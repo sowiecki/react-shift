@@ -3,13 +3,13 @@ import TestUtils from 'react-addons-test-utils';
 import shallowRender from 'react-shallow-render';
 import { findClass, findType } from 'react-shallow-renderer-helpers';
 
-import Shift from '../src/react-shift.jsx';
-import Arrow from '../src/arrow.jsx';
+import Shift from '../src/react-shift';
+import Arrow from '../src/arrow';
 
 const shallowRenderer = TestUtils.createRenderer();
 
 describe('Shift', () => {
-  let component, children;
+  let component;
 
   const props = {
     classes: {
@@ -22,13 +22,13 @@ describe('Shift', () => {
   };
 
   beforeEach(() => {
-    children = [
+    props.children = [
       <div>Example child #1</div>,
       <div>Example child #2</div>,
       <div>Example child #3</div>
     ];
 
-    shallowRenderer.render(<Shift children={children} {...props}/>);
+    shallowRenderer.render(<Shift {...props}/>);
 
     component = shallowRenderer.getRenderOutput();
   });
@@ -38,13 +38,13 @@ describe('Shift', () => {
   });
 
   it('renders children in the correct order', () => {
-    shallowRenderer.render(<Shift children={children} {...props}/>);
+    shallowRenderer.render(<Shift {...props}/>);
     component = shallowRenderer.getRenderOutput();
 
     const pageWrapper = findClass(component, 'test-page');
     const navigation = findClass(component, 'test-navigation');
 
     const renderedPageContent = pageWrapper.props.children.props.children;
-    expect(renderedPageContent).to.equal(children[0].props.children);
+    expect(renderedPageContent).to.equal(props.children[0].props.children);
   });
 })

@@ -17,7 +17,6 @@ gulp.task('dev', () => {
   return gulp.src(path)
     .pipe(sourcemaps.init())
     .pipe(babel(babelPresets))
-    .pipe(concat('react-shift.js'))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('dist'));
 });

@@ -3,7 +3,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import Shift from '../src/react-shift.jsx';
+import Shift from '../dist/react-shift';
 
 const arrowLabels = {
   next: '>>>',

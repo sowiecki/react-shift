@@ -2,8 +2,8 @@
 import React, { Component, PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-import Arrow from './arrow.jsx';
-import Pagination from './pagination.jsx';
+import Arrow from './arrow';
+import Pagination from './pagination';
 
 import touchHandler from './touch-handler';
 
