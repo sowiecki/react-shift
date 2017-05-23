@@ -8,6 +8,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Arrow = function Arrow(_ref) {
@@ -28,11 +32,11 @@ var Arrow = function Arrow(_ref) {
 };
 
 Arrow.propTypes = {
-  fakeLink: _react.PropTypes.bool,
-  onClick: _react.PropTypes.func,
-  label: _react.PropTypes.string,
-  className: _react.PropTypes.string,
-  style: _react.PropTypes.object
+  fakeLink: _propTypes2.default.bool,
+  onClick: _propTypes2.default.func,
+  label: _propTypes2.default.string,
+  className: _propTypes2.default.string,
+  style: _propTypes2.default.object
 };
 
 exports.default = Arrow;
@@ -45,6 +49,10 @@ Object.defineProperty(exports, "__esModule", {
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -95,12 +103,12 @@ exports.default = Pagination;
 
 
 Pagination.propTypes = {
-  classes: _react.PropTypes.object,
-  styles: _react.PropTypes.object,
-  fakeLinks: _react.PropTypes.bool,
-  page: _react.PropTypes.number,
-  pageCount: _react.PropTypes.number,
-  onClick: _react.PropTypes.func
+  classes: _propTypes2.default.object,
+  styles: _propTypes2.default.object,
+  fakeLinks: _propTypes2.default.bool,
+  page: _propTypes2.default.number,
+  pageCount: _propTypes2.default.number,
+  onClick: _propTypes2.default.func
 };
 'use strict';
 
@@ -115,6 +123,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactAddonsCssTransitionGroup = require('react-addons-css-transition-group');
 
@@ -331,45 +343,45 @@ var ReactShift = function (_Component) {
 }(_react.Component);
 
 ReactShift.propTypes = {
-  children: _react.PropTypes.node.isRequired,
-  classes: _react.PropTypes.shape({
-    wrapper: _react.PropTypes.string,
-    navigation: _react.PropTypes.string,
-    page: _react.PropTypes.string,
-    pagination: _react.PropTypes.string,
-    pageNumber: _react.PropTypes.string,
-    currentPage: _react.PropTypes.string,
-    fastLinks: _react.PropTypes.string,
-    navArrow: _react.PropTypes.string,
-    nextPage: _react.PropTypes.string,
-    previousPage: _react.PropTypes.string,
-    arrowFiller: _react.PropTypes.string
+  children: _propTypes2.default.node.isRequired,
+  classes: _propTypes2.default.shape({
+    wrapper: _propTypes2.default.string,
+    navigation: _propTypes2.default.string,
+    page: _propTypes2.default.string,
+    pagination: _propTypes2.default.string,
+    pageNumber: _propTypes2.default.string,
+    currentPage: _propTypes2.default.string,
+    fastLinks: _propTypes2.default.string,
+    navArrow: _propTypes2.default.string,
+    nextPage: _propTypes2.default.string,
+    previousPage: _propTypes2.default.string,
+    arrowFiller: _propTypes2.default.string
   }),
-  styles: _react.PropTypes.shape({
-    wrapper: _react.PropTypes.object,
-    navigation: _react.PropTypes.object,
-    page: _react.PropTypes.object,
-    pagination: _react.PropTypes.object,
-    pageNumber: _react.PropTypes.object,
-    currentPage: _react.PropTypes.object,
-    fastLinks: _react.PropTypes.object,
-    navArrow: _react.PropTypes.object,
-    nextPage: _react.PropTypes.object,
-    previousPage: _react.PropTypes.object,
-    arrowFiller: _react.PropTypes.object
+  styles: _propTypes2.default.shape({
+    wrapper: _propTypes2.default.object,
+    navigation: _propTypes2.default.object,
+    page: _propTypes2.default.object,
+    pagination: _propTypes2.default.object,
+    pageNumber: _propTypes2.default.object,
+    currentPage: _propTypes2.default.object,
+    fastLinks: _propTypes2.default.object,
+    navArrow: _propTypes2.default.object,
+    nextPage: _propTypes2.default.object,
+    previousPage: _propTypes2.default.object,
+    arrowFiller: _propTypes2.default.object
   }),
-  arrowLabels: _react.PropTypes.shape({
-    className: _react.PropTypes.string,
-    next: _react.PropTypes.string,
-    previous: _react.PropTypes.string
+  arrowLabels: _propTypes2.default.shape({
+    className: _propTypes2.default.string,
+    next: _propTypes2.default.string,
+    previous: _propTypes2.default.string
   }),
-  fastLinks: _react.PropTypes.object,
-  fakeLinks: _react.PropTypes.bool,
-  transitions: _react.PropTypes.shape({
-    active: _react.PropTypes.bool,
-    name: _react.PropTypes.string
+  fastLinks: _propTypes2.default.object,
+  fakeLinks: _propTypes2.default.bool,
+  transitions: _propTypes2.default.shape({
+    active: _propTypes2.default.bool,
+    name: _propTypes2.default.string
   }),
-  scrollable: _react.PropTypes.bool
+  scrollable: _propTypes2.default.bool
 };
 
 ReactShift.defaultProps = {
